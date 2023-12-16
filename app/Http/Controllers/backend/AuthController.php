@@ -50,8 +50,14 @@ class AuthController extends Controller
     }
     function getLogout()
     {
-        Auth::logout();
-        return redirect()->route('backend.login');
+        if(Auth::user()->isAdmin == 1){
+            Auth::logout();
+            return redirect()->route('backend.login');
+        }
+        else{
+            Auth::logout();
+            return redirect()->route('home');
+        }
     }
     // Tạo tài khoản
     public function postRegister(UserRequest $request)

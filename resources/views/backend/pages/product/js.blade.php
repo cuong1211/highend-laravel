@@ -121,7 +121,8 @@
         modal.find('textarea[name=description]').val(data.description);
         modal.find('select[name=type_id]').val(data.type_id);
         modal.find('textarea[name=preview]').val(data.preview);
-        var specification_detail = data.specification[0];
+        var specification_detail = data;
+        console.log(specification_detail);
         if (data.specification.length > 0) {
             for (let i = 0; i < data.specification.length; i++) {
                 var specificationClass = 'specification-section-' + Date.now();

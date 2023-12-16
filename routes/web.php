@@ -53,6 +53,7 @@ route::group(["namespace" => "frontend"], function () {
         route::post('/checkout', [FrontendController::class, 'postCheckout'])->name('postCheckout');
         route::get('/checkout/{order}/complete', [FrontendController::class, 'getCheckoutComplete'])->name('frontend.order_complete');
         route::get('/order-manager/{user}', [FrontendOrderController::class, 'getOrderManager'])->name('frontend.ordermanager');
+        route::put('/order-manager/{user}/{order}', [FrontendOrderController::class, 'updateOrder'])->name('frontend.ordermanager.update');
         route::get('/logout', [AuthController::class, 'getLogout'])->name('logout');
     });
 });

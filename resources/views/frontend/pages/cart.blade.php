@@ -134,8 +134,8 @@
                                     <select name="city" id="select-city" class="select-address"></select>
                                     <select name="district" id="select-district" class="select-address"></select>
                                     <select name="ward" id="select-ward" class="select-address"></select>
-                                    <input name="address" class="select-address" type="text"
-                                        placeholder="Số nhà, tên đường" required>
+                                    <input name="address" class="select-address input-address" type="text"
+                                        placeholder="Số nhà, tên đường">
                                 </div>
                             </div>
                         </div>
@@ -166,6 +166,7 @@
 @endsection
 @push('jscustom')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         async function loadDistrict() {
             $('#select-district').empty();
@@ -297,6 +298,7 @@
                 });
             });
             $('#form-order').on('submit', function(e) {
+
                 e.preventDefault();
                 console.log('submit');
                 var name = $(this).find('input[name="name"]').val();
@@ -308,32 +310,48 @@
                     var district = $(this).find('select[name="district"]').val();
                     var ward = $(this).find('select[name="ward"]').val();
                     var address = $(this).find('input[name="address"]').val();
-                    var user_address = city + district + ward + address;
+                    var user_address = address + ', ' + ward + ', ' + district + ', ' + city;
                 }
                 var note = $(this).find('input[name="note"]').val();
                 var total = $(this).find('input[name="total"]').val();
                 var user_id = $(this).find('input[name="user_id"]').val();
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{ route('postCheckout') }}",
-                    method: "POST",
-                    data: {
-                        user_id: user_id,
-                        name: name,
-                        phone: phone,
-                        address: user_address,
-                        note: note,
-                        total: total,
-                    },
-                    success: function(data) {
-                        if (data.type == 'success') {
-                            var route = "{{ url('checkout') }}" + "/" + data.content +
-                                "/complete";
-                            window.location.href = route;
-                        }
+                Swal.fire({
+                    text: "Xác nhận đặt hàng?(Vui lòng kiểm tra lại thông tin đơn hàng)",
+                    icon: "warning",
+                    showCancelButton: true,
+                    buttonsStyling: false,
+                    confirmButtonText: "Có!",
+                    cancelButtonText: "Không",
+                    customClass: {
+                        confirmButton: "btn fw-bold btn-danger",
+                        cancelButton: "btn fw-bold btn-active-light-primary",
+                    }
+                }).then(function(result) {
+                    if (result.value) {
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            url: "{{ route('postCheckout') }}",
+                            method: "POST",
+                            data: {
+                                user_id: user_id,
+                                name: name,
+                                phone: phone,
+                                address: user_address,
+                                note: note,
+                                total: total,
+                            },
+                            success: function(data) {
+                                if (data.type == 'success') {
+                                    var route = "{{ url('checkout') }}" + "/" + data
+                                        .content +
+                                        "/complete";
+                                    window.location.href = route;
+                                }
 
+                            }
+                        });
                     }
                 });
             })
@@ -342,6 +360,7 @@
         $('.cntry-district').hide();
         $('.add_address').click(function() {
             $('.cntry-district').show();
+            $('.input-address').attr('required', true);
             $('.user-address').text('');
             $('.text-address').hide();
         })

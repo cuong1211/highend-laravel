@@ -34,6 +34,7 @@ class ColorService
     public function create($data)
     {
         $data = (object) $data;
+        // dd($data);
         $color = new Color();
         $color->product_id = $data->product_id;
         $color->label = $data->label;
@@ -47,6 +48,7 @@ class ColorService
             if ($key == 0) {
                 $image->is_thumbnail = 1;
             }
+            
             $image->save();
         }
         return $color;

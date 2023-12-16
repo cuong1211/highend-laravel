@@ -29,21 +29,20 @@ class OrderService
     public function create($data)
     {
         $data = (object)$data;
-        // dd($data);
-        $address = $data->address . ', ' . $data->ward . ', ' . $data->district . ', ' . $data->city;
         $create = Order::create([
             'user_id' => $data->user_id,
             'name' => $data->name,
             'phone' => $data->phone,
-            'address' => $address,
+            'address' => $data->address,
             'note' => $data->note,
             'status' => 0,
             'total' => $data->total,
         ]);
-        $user = User::find($data->user_id)->update([
-            'address' => $address,
-        ]);
-        // dd($create);
+        $user = User::find($data->user_id);
+        $user->name = $data->name;
+        $user->address = $data->address;
+        $user->phone = $data->phone;
+        $user->save();
         $cart = Cart::where('user_id', $data->user_id)->whereNull('order_id')->get();
         foreach ($cart as $item) {
             $item->update([

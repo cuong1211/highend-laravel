@@ -1430,7 +1430,14 @@ li.active .product-color--option {
     float: left;
     width: 11%;
 }
-
+.img-manager{
+    float: left;
+}
+.img-manager img {
+    display: block;
+    overflow: hidden;
+    width: 40px;
+}
 .box-order li .img-order img {
     display: block;
     overflow: hidden;

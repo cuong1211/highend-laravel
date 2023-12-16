@@ -30,10 +30,10 @@ class UserRequest extends FormRequest
             case 'postRegister': {
                     return [
                         'name' => ['required', 'max:255',],
+                        'phone' => ['required', 'unique:users','min:10','numeric'],
                         'email' => ['required', 'email', 'unique:users', 'max:255'],
                         'password' => ['required', 'min:8', 'max:255'],
                         'password_confirmation' => ['required', 'same:password'],
-                        'phone' => ['nullable', 'unique:users', 'max:255'],
                         'isAdmin' => ['required', 'boolean'],
                     ];
                 }
@@ -76,8 +76,11 @@ class UserRequest extends FormRequest
             'password.max' => 'Mật khẩu không được quá 255 ký tự',
             'password_confirmation.required' => 'Xác nhận mật khẩu không được để trống',
             'password_confirmation.same' => 'Xác nhận mật khẩu không đúng',
+            'phone.required' => 'Số điện thoại không được để trống',
             'phone.unique' => 'Số điện thoại đã tồn tại',
-            'phone.max' => 'Số điện thoại không được quá 255 ký tự',
+            'phone.max' => 'Số điện thoại không được quá 11 số',
+            'phone.min' => 'Số điện thoại không được dưới 10 số',
+            'phone.regex' => 'Số điện thoại không đúng định dạng',
             'isAdmin.required' => 'Vai trò không được để trống',
             'isAdmin.boolean' => 'Vai trò không đúng định dạng',
 

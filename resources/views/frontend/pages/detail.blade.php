@@ -107,77 +107,66 @@
     </div>
     <div class="product_detail--info">
         <div class="info_tab">
-            <h2 class="info_tab--item active">Mô tả</h2>
-            <h2 class="info_tab--item">Thông số kỹ nhất</h2>
+            <h2 class="info_tab--item ">Mô tả</h2>
+            <h2 class="info_tab--item active">Thông số kỹ nhất</h2>
             <h2 class="info_tab--item">Đánh giá sản phẩm</h2>
         </div>
         <div class="info_tab--contentbox">
-            <div class="info_tab--content">
-                <button data-toggle="collapse" data-target="#collapse1" aria-expanded="true"
-                    aria-controls="collapseExample">
-                    Màn hình
-                </button>
-                <div id="collapse1" class="collapse show">
-                    <div class="card-body">
-                        <!-- Content inside the collapse panel -->
-                        <ul>
-                            <li>
-                                <aside>
-                                    <strong>Công nghệ màn hình:</strong>
-                                </aside>
-                                <aside>
-                                    <strong>OLED</strong>
-                                </aside>
-                            </li>
-                            <li>
-                                <aside>
-                                    <strong>Độ phân giải:</strong>
-                                </aside>
-                                <aside>
-                                    <strong>2796 x 1290 Pixels</strong>
-                                </aside>
-                            </li>
-                            <li>
-                                <aside>
-                                    <strong>Công nghệ màn hình:</strong>
-                                </aside>
-                                <aside>
-                                    <strong>OLED</strong>
-                                </aside>
-                            </li>
-                            <li>
-                                <aside>
-                                    <strong>Công nghệ màn hình:</strong>
-                                </aside>
-                                <aside>
-                                    <strong>OLED</strong>
-                                </aside>
-                            </li>
-                            <li>
-                                <aside>
-                                    <strong>Công nghệ màn hình:</strong>
-                                </aside>
-                                <aside>
-                                    <strong>OLED</strong>
-                                </aside>
-                            </li>
-                        </ul>
+            {{-- @foreach ($specification as $item)
+                <div class="info_tab--content">
+                    <button data-toggle="collapse" data-target="#collapse1" aria-expanded="true"
+                        aria-controls="collapseExample">
+                        {{ $item->name }}
+                    </button>
+                    <div id="collapse1" class="collapse show">
+                        <div class="card-body">
+                            <!-- Content inside the collapse panel -->
+                            <ul>
+                                @foreach ($item->specification_detail as $item2)
+                                    <li>
+                                        <aside>
+                                            <strong>{{ $item2->label }}:</strong>
+                                        </aside>
+                                        <aside>
+                                            <strong>{{ $item2->value }}</strong>
+                                        </aside>
+                                    </li>
+                                @endforeach
+
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach --}}
             <div class="info_tab--content active">
-                <button data-toggle="collapse" data-target="#collapse2" aria-expanded="true"
-                    aria-controls="collapseExample">
-                    Camera sau
-                </button>
-                <div id="collapse2" class="collapse">
-                    <div class="card-body">
-                        <!-- Content inside the collapse panel -->
-                        <p>This is the collapsible content!</p>
+                @foreach ($specification as $item)
+                    <div class="info_tab--content active">
+                        <button data-toggle="collapse" data-target="#collapse1" aria-expanded="true"
+                            aria-controls="collapseExample">
+                            {{ $item->name }}
+                        </button>
+                        <div id="collapse1" class="collapse show">
+                            <div class="card-body">
+                                <!-- Content inside the collapse panel -->
+                                <ul>
+                                    @foreach ($item->specification_detail as $item2)
+                                        <li>
+                                            <aside>
+                                                <strong>{{ $item2->label }}:</strong>
+                                            </aside>
+                                            <aside>
+                                                <strong>{{ $item2->value }}</strong>
+                                            </aside>
+                                        </li>
+                                    @endforeach
+
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                @endforeach
             </div>
-            <div class="info_tab--content">
+            {{-- <div class="info_tab--content">
                 <button data-toggle="collapse" data-target="#collapse3" aria-expanded="true"
                     aria-controls="collapseExample">
                     Click to Collapse
@@ -188,7 +177,7 @@
                         <p>This is the collapsible content!</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
     </div>
@@ -271,7 +260,8 @@
                         },
                         success: function(data) {
                             if (data.type == 'success') {
-                                window.location.href = "{{ route('cart', '') }}" + '/' + userId;
+                                window.location.href = "{{ route('cart', '') }}" + '/' +
+                                    userId;
                             }
                         }
                     })

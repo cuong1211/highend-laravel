@@ -12,10 +12,12 @@ use App\Models\Order;
 use App\Models\Type;
 use App\Models\Product_type;
 use App\Models\Product;
+use App\Models\specification;
 use App\Models\User;
 use App\Services\Order\OrderService;
 use Attribute;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -27,7 +29,11 @@ class FrontendController extends Controller
     }
     public function login()
     {
-        return view('frontend.pages.auth.login');
+        if (Auth::check()) {
+            return redirect()->route('loginsuccess')->with('success', 'Đăng nhập thành công');
+        } else {
+            return view('frontend.pages.auth.login');
+        }
     }
     public function register()
     {
@@ -97,8 +103,11 @@ class FrontendController extends Controller
             ->groupBy('colors.id', 'colors.label', 'colors.value')
             ->get();
         $image = $product_detail->atribute;
-        // dd($product_detail,$product_type, $capacity, $price, $color, $image);
-        return view('frontend.pages.detail', compact('product_type', 'product_detail', 'capacity', 'price', 'color', 'image'));
+        $specification = specification::where('product_id', $product_detail->product_id)->with([
+            'specification_detail'
+        ])->get();
+        // dd($specification);
+        return view('frontend.pages.detail', compact('product_type', 'product_detail', 'capacity', 'price', 'color', 'image', 'specification'));
     }
     public function getCart($user)
     {
@@ -276,7 +285,7 @@ class FrontendController extends Controller
         $order_complete = DB::table('carts')
             ->where('carts.order_id', $order)
             ->join('users', 'carts.user_id', '=', 'users.id')
-            ->select('users.name', 'users.phone', 'users.address', 'users.email')
+            ->select('users.id', 'users.name', 'users.phone', 'users.address', 'users.email')
             ->first();
         $total = Order::find($order)->total;
         $product = DB::table('carts')
@@ -287,7 +296,7 @@ class FrontendController extends Controller
             ->where('images.is_thumbnail', 1)
             ->select('carts.quantity', 'carts.price', 'carts.total', 'product_types.name as product_name', 'colors.label', 'images.image')
             ->get();
-            // dd($order_complete);
+        // dd($order_complete);
         return view('frontend.pages.order_complete', compact('order_complete', 'total', 'product', 'order'));
     }
     public function getOrderManager($user)

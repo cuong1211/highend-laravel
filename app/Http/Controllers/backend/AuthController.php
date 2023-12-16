@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Services\User\UserService;
 
 class AuthController extends Controller
 {
+    protected $userservice;
+    public function __construct(UserService $userservice)
+    {
+        $this->userservice = $userservice;
+    }
     public function login()
     {
         if (Auth::check()) {
@@ -26,11 +32,17 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        // dd($credentials);
         if (Auth::attempt($credentials)) {
+            // dd(Auth::user());
             if (Auth::user()->isAdmin == 1) {
                 return redirect()->intended('/admin')->with('success', 'Đăng nhập thành công');
             } else {
-                return redirect()->back()->with('success', 'Đăng nhập thành công');
+                return response()->json([
+                    'type' => 'success',
+                    'title' => 'success',
+                    'content' => 'Đăng nhập thành công'
+                ]);
             }
         } else {
             return redirect()->route('login')->with('error', 'Email hoặc mật khẩu không đúng.');
@@ -42,12 +54,11 @@ class AuthController extends Controller
         return redirect()->route('backend.login');
     }
     // Tạo tài khoản
-    public function registerUser(UserRequest $request)
+    public function postRegister(UserRequest $request)
     {
 
         $data = $request->validated();
-        $create = $this->UserService->create($data);
-
+        $create = $this->userservice->create($data);
         if ($create) {
             return response()->json(
                 [

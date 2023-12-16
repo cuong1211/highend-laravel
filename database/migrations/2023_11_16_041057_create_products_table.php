@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
-            $table->string('category_id')->nullable();
+            $table->longText('description')->nullable();
+            $table->longText('preview')->nullable();
+            $table->string('type_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

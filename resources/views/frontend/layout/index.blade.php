@@ -6,11 +6,13 @@
 </head>
 
 <body>
-    @include('frontend.layout.header')
-    <section>
-        @yield('content')
-    </section>
-    @include('frontend.layout.footer')
+    <div id="app">
+        @include('frontend.layout.header')
+        <section>
+            @yield('content')
+        </section>
+        @include('frontend.layout.footer')
+    </div>
     @yield('js')
     @stack('jscustom')
 </body>

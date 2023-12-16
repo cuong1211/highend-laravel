@@ -1,8 +1,9 @@
-@extends('backend.layout.source')
 @section('title')
     Quản lý sản phẩm
 @endsection
 @push('csscustom')
+    <link href="assets/css/summernote-bs4.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js" defer></script>
     <style>
         .add-read-more.show-less-content .second-section,
         .add-read-more.show-less-content .read-less {
@@ -22,7 +23,6 @@
         }
     </style>
 @endpush
-@extends('backend.layout.header')
 @section('breadcrumb')
     <div class="page-title d-flex flex-column me-5">
         <!--begin::Title-->
@@ -89,7 +89,7 @@
                                 <!--end::Filter-->
                                 <!--begin::Add customer-->
                                 <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal"
-                                    data-bs-target="#kt_modal_add_customer">Thêm mặt hàng</button>
+                                    data-bs-target="#kt_modal_add_customer">Thêm sản phẩm</button>
                                 <!--end::Add customer-->
                             </div>
                             <!--end::Toolbar-->
@@ -119,11 +119,9 @@
                                         STT
                                     </th>
                                     <th class="min-w-125px">Tên sản phẩm</th>
-                                    <th class="min-w-125px">Giá</th>
-                                    <th class="min-w-125px">Slug</th>
-                                    <th class="min-w-125px">Mô tả</th>
-                                    <th class="min-w-125px">Hình ảnh</th>
                                     <th class="min-w-125px">Danh mục</th>
+                                    <th class="min-w-125px"> Quản lý màu sắc </th>
+                                    <th class="min-w-125px"> Quản lý dung lượng </th>
                                     <th class="text-end min-w-70px">Chức năng</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -154,6 +152,11 @@
     </div>
 @endsection
 @push('jscustom')
+    <script>
+        let index_edit = 0,
+            index_add = 0,
+            form_status;
+    </script>
     <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
     @include('backend.pages.product.js')
 @endpush

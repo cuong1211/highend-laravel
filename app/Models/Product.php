@@ -16,8 +16,25 @@ class Product extends Model
     protected $fillable = [
         'name',
         'slug',
-        'category_id',
+        'type_id',
     ];
+    protected $dates = ['deleted_at','created_at', 'updated_at'];
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
+    public function specification()
+    {
+        return $this->hasMany(Specification::class);
+    }
+    public function product_type()
+    {
+        return $this->hasMany(Product_type::class);
+    }
+    public static function getProduct()
+    {
+        return Product::all();
+    }
     public function sluggable(): array
     {
         return [

@@ -17,13 +17,15 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-
+        if (Auth::check()) {
             $user = Auth::user();
-            if($user->isAdmin == 1){
+            if ($user->isAdmin == 1) {
                 return $next($request);
-            }else{
+            } else {
                 return redirect()->route('403');
             }
-
+        } else {
+            return redirect()->route('backend.login');
+        }
     }
 }

@@ -29,38 +29,25 @@
                 }
             },
             {
-                data: 'price',
+                data: 'type.name',
                 render: function(data, type, row, meta) {
                     return data;
                 }
             },
             {
-                data: 'slug',
+                data: 'null',
                 render: function(data, type, row, meta) {
-                    return data;
+                    var route = "{{ url('admin') }}" + "/" + row.slug + "/color";
+                    var html = '<a class="btn btn-dark" href="' + route + '">Truy cập</a>';
+                    return html;
                 }
             },
             {
-                data: 'description',
+                data: 'null',
                 render: function(data, type, row, meta) {
-                    if (data == null) {
-                        return '';
-                    } else {
-                        return AddReadMore(data);
-                    }
-                }
-            },
-            {
-                data: 'image',
-                render: function(data, type, row, meta) {
-                    return '<img src="{{ route('image', '') }}/' + data +
-                        ' " width="100" height="100" />';
-                }
-            },
-            {
-                data: 'category.name',
-                render: function(data, type, row, meta) {
-                    return data;
+                    var route = "{{ url('admin') }}" + "/" + row.slug + "/product_type";
+                    var html = '<a class="btn btn-dark" href="' + route + '">Truy cập</a>';
+                    return html;
                 }
             },
             {
@@ -104,43 +91,133 @@
             'backdrop': 'static',
             'keyboard': false
         });
-        $("#kt_modal_add_customer_form").trigger("reset");
+        $('.block-content').remove();
+        $("#kt_create_account_form").trigger("reset");
+        index_edit = 0;
+        index_add = 0;
 
     }
-    $(document).on('click', '.btn-edit', function(e) {
-        console.log('edit')
-        e.preventDefault();
-        form_reset();
-        let data = $(this).data('data');
-        let modal = $('#kt_modal_add_customer_form');
-        modal.find('.modal-title').text('Sửa thông tin');
-        modal.find('input[name=id]').val(data.id);
-        modal.find('input[name=name]').val(data.name);
-        modal.find('input[name=price]').val(data.price);
-        modal.find('input[name=slug]').val(data.slug);
-        modal.find('textarea[name=description]').val(data.description);
-        modal.find('select[name=category_id]').val(data.category_id);
-        $('#image').attr('src', '{{ route('image', '') }}/' + data.image);
-        let image = data.image;
-        if (data.image == null) {
-            $('#image').attr("src", "");
-        }
-    });
     $(document).on('click', '.btn-add', function(e) {
         console.log('add')
         e.preventDefault();
         form_reset();
-        let modal = $('#kt_modal_add_customer_form');
-        modal.find('.modal-title').text('Thêm sản phẩm');
+        form_status = 'add';
+        $('.modal-title').text('Thêm sản phẩm');
+        let modal = $('#kt_create_account_form');
         modal.find('input[name=id]').val('');
     });
-    $('#kt_modal_add_customer_form').on('submit', function(e) {
+    $(document).on('click', '.btn-edit', function(e) {
+        console.log('edit')
+        e.preventDefault();
+        form_reset();
+        $('.modal-title').text('Sửa sản phẩm');
+        let data = $(this).data('data');
+        form_status = 'edit';
+        console.log(data);
+        let modal = $('#kt_create_account_form');
+        modal.find('input[name=id]').val(data.id);
+        modal.find('input[name=name]').val(data.name);
+        modal.find('input[name=slug]').val(data.slug);
+        modal.find('textarea[name=description]').val(data.description);
+        modal.find('select[name=type_id]').val(data.type_id);
+        modal.find('textarea[name=preview]').val(data.preview);
+        var specification_detail = data.specification[0];
+        if (data.specification.length > 0) {
+            for (let i = 0; i < data.specification.length; i++) {
+                var specificationClass = 'specification-section-' + Date.now();
+                $('#specification-input').append(
+                    '<div class="d-flex block-content">' +
+                    '<div class="w-100 ' + specificationClass + '">' +
+                    '<div class="fv-row mb-8">' +
+                    '<label class="required fs-6 fw-bold mb-2">Name:</label>' +
+                    '<input type="text" class="form-control form-control-solid" placeholder="" name="specification_name[' +
+                    i + ']" value="' +
+                    data.specification[i].name + '"/>' +
+                    '</div>' +
+                    '<div class="table-responsive">' +
+                    '<table id="kt_create_new_custom_fields" class="table align-middle table-row-dashed fw-bold fs-6 gy-5 dataTable no-footer ' +
+                    specificationClass + '">' +
+                    '<thead>' +
+                    '<tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">' +
+                    '<th class="pt-0 sorting_disabled required" rowspan="1" colspan="1" style="width: 280.734px;">Label</th>' +
+                    '<th class="pt-0 sorting_disabled required" rowspan="1" colspan="1" style="width: 280.734px;">Value</th>' +
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody id="' + specificationClass + '">' +
+                    '<input type="hidden" class="block-id" value="' + i + '">' +
+                    '</tbody>' +
+                    '</table>' +
+                    '</div>' +
+                    '</div>' +
+                    '<button type="button" class="btn btn-active-light-primary div-delete">' +
+                    '<span class = "svg-icon svg-icon-3" >' +
+                    '<svg xmlns = "http://www.w3.org/2000/svg"width = "24"height = "24"viewBox = "0 0 24 24"fill = "none" >' +
+                    '<path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="black" >' +
+                    '</path>' +
+                    '<path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="black" >' +
+                    '</path>' +
+                    '<path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="black" >' +
+                    '</path>' +
+                    '</svg>' +
+                    '</span>' +
+                    '</button>' +
+                    '</div>' +
+                    '</div>'
+                );
+                // Thêm tất cả các giá trị từ specification_detail vào tbody
+                for (let j = 0; j < data.specification[i].specification_detail.length; j++) {
+                    $('#' + specificationClass).append(
+                        '<tr class="odd">' +
+                        '<td>' +
+                        '<input type="text" class="form-control form-control-lg form-control-solid required-input" name="specification_label[' +
+                        i + '][]" value="' + data.specification[i].specification_detail[j].label + '">' +
+                        '</td>' +
+                        '<td>' +
+                        '<input type="text" class="form-control form-control-lg form-control-solid required-input" name="specification_value[' +
+                        i + '][]" value="' + data.specification[i].specification_detail[j].value + '">' +
+                        '</td>' +
+                        '<td class="text-end">' +
+                        '<button type="button" class="btn btn-icon btn-flex btn-primary w-30px h-30px me-3 row-add">' +
+                        '<span class="svg-icon svg-icon-2">' +
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">' +
+                        '<rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="black">' +
+                        '</rect>' +
+                        '<rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black">' +
+                        '</rect>' +
+                        '</svg>' +
+                        '</span>' +
+                        '</button>' +
+                        '<button type="button" class="btn btn-icon btn-flex btn-active-light-primary row-delete w-30px h-30px me-3">' +
+                        '<span class = "svg-icon svg-icon-3" >' +
+                        '<svg xmlns = "http://www.w3.org/2000/svg"width = "24"height = "24"viewBox = "0 0 24 24"fill = "none" >' +
+                        '<path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="black" >' +
+                        '</path>' +
+                        '<path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="black" >' +
+                        '</path>' +
+                        '<path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="black" >' +
+                        '</path>' +
+                        '</svg>' +
+                        '</span>' +
+                        '</button>' +
+                        '</td>' +
+                        '</tr>'
+                    );
+                }
+                index_edit++;
+
+                updateButtonVisibility(specificationClass);
+            }
+            console.log(index_edit);
+        }
+
+    });
+
+    $('#kt_create_account_form').on('submit', function(e) {
         e.preventDefault();
         var formData = new FormData(this);
-
         let type = 'POST',
             url = "{{ route('product.store') }}",
-            id = $('form#kt_modal_add_customer_form input[name=id]').val();
+            id = $('form#kt_create_account_form input[name=id]').val();
         if (parseInt(id)) {
             console.log('edit');
             type = 'POST';
@@ -160,7 +237,7 @@
                 notification(data.type, data.title, data.content);
                 if (data.type == 'success') {
                     dt.ajax.reload(null, false);
-                    $('#kt_modal_add_customer_form').trigger('reset');
+                    $('#kt_create_account_form').trigger('reset');
                     $('#kt_modal_add_customer').modal('hide');
                 }
             },

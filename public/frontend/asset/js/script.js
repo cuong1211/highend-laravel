@@ -28,11 +28,11 @@ $('.flash-sale_product').owlCarousel({
     navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
 })
 $('.product-slide').owlCarousel({
-    loop: true,
+    loop: false,
     nav: true,
     dots: false,
     items: 4,
-    autoplay: true,
+    autoplay: false,
     autoplayTimeout: 3000,
     autoplayHoverPause: true,
     navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],

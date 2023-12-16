@@ -124,14 +124,13 @@
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none">
-                                    <rect x="2" y="2" width="9" height="9" rx="2"
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
                                         fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9"
-                                        rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9"
-                                        rx="2" fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9" height="9"
-                                        rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -166,43 +165,22 @@
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
+
                         <div class="menu-item">
-                            <a class="menu-link" id="btn" href="{{ route('product.index') }}">
+                            <a class="menu-link" id="btn" href="{{ route('category.index') }}">
                                 <span class="menu-icon">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                                     <span class="svg-icon svg-icon-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none">
-                                            <rect x="2" y="2" width="9" height="9"
+                                            <rect x="2" y="2" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="13" y="2" width="9" height="9"
                                                 rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="2" width="9"
-                                                height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="13" width="9"
-                                                height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="2" y="13" width="9"
-                                                height="9" rx="2" fill="black" />
-                                        </svg>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                </span>
-                                <span class="menu-title">Quản lý sản phẩm</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            {{-- <a class="menu-link" id="btn" href="{{ route('category.index') }}"> --}}
-                                <span class="menu-icon">
-                                    <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                                    <span class="svg-icon svg-icon-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <rect x="2" y="2" width="9" height="9"
+                                            <rect opacity="0.3" x="13" y="13" width="9" height="9"
                                                 rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="2" width="9"
-                                                height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="13" width="9"
-                                                height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="2" y="13" width="9"
-                                                height="9" rx="2" fill="black" />
+                                            <rect opacity="0.3" x="2" y="13" width="9" height="9"
+                                                rx="2" fill="black" />
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->
@@ -210,23 +188,66 @@
                                 <span class="menu-title">Quản lý mặt hàng</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                            <a class="menu-link" id="btn" href="{{ route('type.index') }}">
+                                <span class="menu-icon">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                    <span class="svg-icon svg-icon-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <rect x="2" y="2" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="13" y="2" width="9" height="9"
+                                                rx="2" fill="black" />
+                                            <rect opacity="0.3" x="13" y="13" width="9" height="9"
+                                                rx="2" fill="black" />
+                                            <rect opacity="0.3" x="2" y="13" width="9" height="9"
+                                                rx="2" fill="black" />
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </span>
+                                <span class="menu-title">Quản lý loại sản phẩm</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link" id="btn" href="{{ route('product.index') }}">
+                                <span class="menu-icon">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                    <span class="svg-icon svg-icon-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <rect x="2" y="2" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="13" y="2" width="9" height="9"
+                                                rx="2" fill="black" />
+                                            <rect opacity="0.3" x="13" y="13" width="9" height="9"
+                                                rx="2" fill="black" />
+                                            <rect opacity="0.3" x="2" y="13" width="9" height="9"
+                                                rx="2" fill="black" />
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </span>
+                                <span class="menu-title">Quản lý sản phẩm</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="menu-item">
-                    {{-- <a class="menu-link" id="btn" href="{{ route('order.index') }}"> --}}
+                    <a class="menu-link" id="btn" href="{{ route('order.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none">
-                                    <rect x="2" y="2" width="9" height="9"
-                                        rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9"
-                                        height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9"
-                                        height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9"
-                                        height="9" rx="2" fill="black" />
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -284,20 +305,20 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            {{-- <a class="menu-link" id="btn" href="{{ route('statistic.product') }}"> --}}
+                            <a class="menu-link" id="btn" href="{{ route('statistic.product') }}">
                                 <span class="menu-icon">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                                     <span class="svg-icon svg-icon-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none">
-                                            <rect x="2" y="2" width="9" height="9"
+                                            <rect x="2" y="2" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="13" y="2" width="9" height="9"
                                                 rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="2" width="9"
-                                                height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="13" width="9"
-                                                height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="2" y="13" width="9"
-                                                height="9" rx="2" fill="black" />
+                                            <rect opacity="0.3" x="13" y="13" width="9" height="9"
+                                                rx="2" fill="black" />
+                                            <rect opacity="0.3" x="2" y="13" width="9" height="9"
+                                                rx="2" fill="black" />
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->
@@ -306,20 +327,20 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            {{-- <a class="menu-link" id="btn" href="{{ route('statistic.report') }}"> --}}
+                            <a class="menu-link" id="btn" href="{{ route('statistic.report') }}">
                                 <span class="menu-icon">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                                     <span class="svg-icon svg-icon-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none">
-                                            <rect x="2" y="2" width="9" height="9"
+                                            <rect x="2" y="2" width="9" height="9" rx="2"
+                                                fill="black" />
+                                            <rect opacity="0.3" x="13" y="2" width="9" height="9"
                                                 rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="2" width="9"
-                                                height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="13" y="13" width="9"
-                                                height="9" rx="2" fill="black" />
-                                            <rect opacity="0.3" x="2" y="13" width="9"
-                                                height="9" rx="2" fill="black" />
+                                            <rect opacity="0.3" x="13" y="13" width="9" height="9"
+                                                rx="2" fill="black" />
+                                            <rect opacity="0.3" x="2" y="13" width="9" height="9"
+                                                rx="2" fill="black" />
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->
@@ -330,20 +351,19 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    {{-- <a class="menu-link" id="btn" href="{{ route('user.index') }}"> --}}
+                    <a class="menu-link" id="btn" href="{{ route('user.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none">
-                                    <rect x="2" y="2" width="9" height="9"
-                                        rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9"
-                                        height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9"
-                                        height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9"
-                                        height="9" rx="2" fill="black" />
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->

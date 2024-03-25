@@ -31,6 +31,14 @@
                 }
             },
             {
+                data: 'null',
+                render: function(data, type, row, meta) {
+                    var route = "{{ url('admin') }}" + "/" + row.slug + "/product";
+                    var html = '<a class="btn btn-dark" href="' + route + '">Truy cập</a>';
+                    return html;
+                }
+            },
+            {
                 data: null,
                 className: 'text-end',
                 render: function(data, type, row, meta) {

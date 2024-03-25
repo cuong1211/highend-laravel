@@ -21,7 +21,8 @@ class ColorController extends Controller
     public function index($product)
     {
         $product_id = Product::where('slug', $product)->first()->id;
-        return view('backend.pages.color.main', compact('product', 'product_id'));
+        $type = Product::where('slug', $product)->first()->type_id;
+        return view('backend.pages.color.main', compact('product', 'product_id', 'type'));
     }
 
     public function create()

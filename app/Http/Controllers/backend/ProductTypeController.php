@@ -25,8 +25,9 @@ class ProductTypeController extends Controller
     {
         $product_id = Product::where('slug', $product)->first()->id;
         $color_list = Color::where('product_id', $product_id)->get();
+        $type = Product::where('slug', $product)->first()->type_id;
         // dd($color_list);
-        return view('backend.pages.product_type.main', compact('product','product_id','color_list'));
+        return view('backend.pages.product_type.main', compact('product','product_id','color_list','type'));
     }
 
     /**

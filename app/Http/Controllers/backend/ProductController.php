@@ -19,10 +19,10 @@ class ProductController extends Controller
     {
         $this->productservice = $productservice;
     }
-    public function index()
+    public function index($type)
     {
         // use getCategory() method from Category model
-        $type = Type::getType();
+        $type = Type::where('slug', $type)->first()->id;
         return view('backend.pages.product.main', compact('type'));
     }
 
@@ -31,7 +31,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.pages.product.create');
     }
 
     /**
@@ -54,15 +54,15 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id, Request $request)
+    public function show($type,string $id, Request $request)
     {
         switch ($id) {
             case 'get-list':
-                $cate = $this->productservice->index();
+                $index = $this->productservice->index($type);
                 // if ($request->search_table) {
                 //     $cate = $this->productservice->search($request);
                 // }
-                return Datatables::of($cate)->make(true);
+                return Datatables::of($index)->make(true);
                 break;
             default:
                 break;
@@ -72,9 +72,9 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, $type )
     {
-        //
+        return view('backend.pages.product.edit', compact('id', 'type'));
     }
 
     /**

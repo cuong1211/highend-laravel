@@ -119,7 +119,9 @@
                                         STT
                                     </th>
                                     <th class="min-w-125px">Tên sản phẩm</th>
-                                    <th class="min-w-125px">Danh mục</th>
+                                    <th class="min-w-125px">Mô tả</th>
+                                    <th class="min-w-125px">Thông số kỹ thuật</th>
+                                    <th class="min-w-125px">Đánh giá sản phẩm</th>
                                     <th class="min-w-125px"> Quản lý màu sắc </th>
                                     <th class="min-w-125px"> Quản lý dung lượng </th>
                                     <th class="text-end min-w-70px">Chức năng</th>
@@ -137,18 +139,11 @@
                     </div>
                     <!--end::Card body-->
                 </div>
-                <!--end::Card-->
-                <!--begin::Modals-->
-                <!--begin::Modal - Customers - Add-->
-                @include('backend.pages.product.modal')
-                <!--end::Modal - Customers - Add-->
-                <!--begin::Modal - Adjust Balance-->
-                <!--end::Modal - New Card-->
-                <!--end::Modals-->
+                @include('backend.pages.product.modal.modal_description')
+                @include('backend.pages.product.modal.modal')
+
             </div>
-            <!--end::Container-->
         </div>
-        <!--end::Post-->
     </div>
 @endsection
 @push('jscustom')

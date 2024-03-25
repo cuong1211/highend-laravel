@@ -27,9 +27,9 @@ class ProductService
         $file->storeAs($destination_path, $filename);
         return $filename;
     }
-    public function index()
+    public function index($type)
     {
-        $index = Product::with([
+        $index = Product::where('type_id', $type)->with([
             'type',
             'specification' => function ($query) {
                 $query->with('specification_detail');
@@ -41,6 +41,7 @@ class ProductService
     public function create($data)
     {
         $data = (object)$data;
+
         $product = new Product();
         $product->name = $data->name;
         $product->slug = $data->slug;
@@ -72,6 +73,7 @@ class ProductService
             },
         ])->first();
         $data = (object)$data;
+        // dd($data);
         $specification_name_df = array();
         $specification_label_df = array();
         $specification_value_df = array();
@@ -88,8 +90,17 @@ class ProductService
         $product->name = $data->name;
         $product->slug = $data->slug;
         $product->type_id = $data->type_id;
-        $product->description = $data->description;
-        $product->preview = $data->preview;
+        if (strpos($data->description, '"') !== false) {
+            $product->description = str_replace('"', "'", $data->description);
+        } else {
+            $product->description = $data->description;
+        }
+        if (strpos($data->preview, '"') !== false) {
+            $product->preview = str_replace('"', "'", $data->preview);
+        } else {
+            $product->preview = $data->preview;
+        }
+
         $product->save();
         foreach ($data->specification_name as $key => $value) {
             $specification = Specification::where('product_id', $id)->where('name', $value)->first();
@@ -109,7 +120,12 @@ class ProductService
                 array_push($specification_value_in, $data->specification_value[$key][$key1]);
                 $specification_detail->specification_id = $specification->id;
                 $specification_detail->label = $value1;
-                $specification_detail->value = $data->specification_value[$key][$key1];
+                // handle value have Quotes
+                if (strpos($data->specification_value[$key][$key1], '"') !== false) {
+                    $specification_detail->value = str_replace('"', "'", $data->specification_value[$key][$key1]);
+                } else {
+                    $specification_detail->value = $data->specification_value[$key][$key1];
+                }
                 $specification_detail->save();
             }
         }
@@ -134,7 +150,7 @@ class ProductService
         $product = Product::find($id);
         $specification = Specification::where('product_id', $id);
         $specification_detail = Specification_detail::whereIn('specification_id', $specification->pluck('id'));
-        if($product && $specification && $specification_detail){
+        if ($product && $specification && $specification_detail) {
             $specification_detail->delete();
             $specification->delete();
             $product->delete();

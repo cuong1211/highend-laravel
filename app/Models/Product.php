@@ -31,6 +31,14 @@ class Product extends Model
     {
         return $this->hasMany(Product_type::class);
     }
+    public function description()
+    {
+        return $this->hasOne(Description::class);
+    }
+    public function review()
+    {
+        return $this->hasOne(Review::class);
+    }
     public static function getProduct()
     {
         return Product::all();

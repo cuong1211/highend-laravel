@@ -106,8 +106,8 @@ class FrontendController extends Controller
         $specification = specification::where('product_id', $product_detail->product_id)->with([
             'specification_detail'
         ])->get();
-        // dd($specification);
-        return view('frontend.pages.detail', compact('product_type', 'product_detail', 'capacity', 'price', 'color', 'image', 'specification'));
+        $preview = Product::where('id', $product_detail->product_id)->select('preview')->first();
+        return view('frontend.pages.detail', compact('product_type', 'product_detail', 'capacity', 'price', 'color', 'image', 'specification', 'preview'));
     }
     public function getCart($user)
     {

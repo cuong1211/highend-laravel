@@ -161,7 +161,7 @@
         }).then(function(result) {
             if (result.value) {
                 $.ajax({
-                    url: "{{ route('product.destroy', '') }}" + '/' + id,
+                    url: "{{ route('color.destroy',['product' => 'product','']) }}" + '/' + id,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -182,25 +182,5 @@
                 });
             }
         });
-    });
-
-    function AddReadMore(data) {
-        var carLmt = 50;
-        var readMoreTxt = " ...Read more";
-        var readLessTxt = " Read less";
-        if (data.length > carLmt) {
-            var firstSet = data.substring(0, carLmt);
-            var secdHalf = data.substring(carLmt, data.length);
-            return "<span class='add-read-more show-less-content text-break column-beaty'>" + firstSet +
-                "<span class='second-section column-beaty'  >" +
-                secdHalf + "</span><span class='read-more text-dark'  title='Click to Show More'>" +
-                readMoreTxt +
-                "</span><span class='read-less text-dark' title='Click to Show Less'>" + readLessTxt +
-                "</span></span>";
-        }
-        return "<span class='add-read-more '>" + data + "</span>";
-    }
-    $(document).on("click", ".read-more,.read-less", function() {
-        $(this).closest(".add-read-more").toggleClass("show-less-content show-more-content");
     });
 </script>

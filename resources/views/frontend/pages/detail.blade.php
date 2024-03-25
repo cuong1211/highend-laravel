@@ -138,14 +138,14 @@
                     </div>
                 </div>
             @endforeach --}}
-            <div class="info_tab--content active">
+            {{-- <div class="info_tab--content ">
                 @foreach ($specification as $item)
                     <div class="info_tab--content active">
-                        <button data-toggle="collapse" data-target="#collapse1" aria-expanded="true"
-                            aria-controls="collapseExample">
+                        <button type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $item->id }}"
+                            aria-expanded="false" aria-controls="collapse{{ $item->id }}">
                             {{ $item->name }}
                         </button>
-                        <div id="collapse1" class="collapse show">
+                        <div id="collapse{{ $item->id }}" class="collapse">
                             <div class="card-body">
                                 <!-- Content inside the collapse panel -->
                                 <ul>
@@ -165,19 +165,10 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
-            {{-- <div class="info_tab--content">
-                <button data-toggle="collapse" data-target="#collapse3" aria-expanded="true"
-                    aria-controls="collapseExample">
-                    Click to Collapse
-                </button>
-                <div id="collapse3" class="collapse">
-                    <div class="card-body">
-                        <!-- Content inside the collapse panel -->
-                        <p>This is the collapsible content!</p>
-                    </div>
-                </div>
             </div> --}}
+            <div class="info_tab--content active">
+                {!! $preview->preview !!}
+            </div>
         </div>
 
     </div>

@@ -29,25 +29,6 @@
             <div class="modal-body scroll-y m-5">
                 <!--begin::Stepper-->
                 <div class="stepper stepper-links d-flex flex-column" id="kt_create_account_stepper">
-                    <!--begin::Nav-->
-                    <div class="stepper-nav py-5">
-                        <div class="stepper-item info current" onclick="openContent('info')" style="cursor: pointer">
-                            <h3 class="stepper-title">Thông tin</h3>
-                        </div>
-                        <div class="stepper-item description" onclick="openContent('description')"
-                            style="cursor: pointer">
-                            <h3 class="stepper-title">Thông tin mô tả</h3>
-                        </div>
-                        <!--end::Step 4-->
-                        <div class="stepper-item specification" onclick="openContent('specification')"
-                            style="cursor: pointer">
-                            <h3 class="stepper-title">Thông số kĩ thuật</h3>
-                        </div>
-                        <div class="stepper-item preview" onclick="openContent('preview')" style="cursor: pointer">
-                            <h3 class="stepper-title">Đánh giá sản phẩm</h3>
-                        </div>
-                    </div>
-                    <!--end::Nav-->
                     <!--begin::Form-->
                     <form class="mx-auto mw-600px w-100" novalidate="novalidate" id="kt_create_account_form"
                         enctype="multipart/form-data">
@@ -73,24 +54,7 @@
                                         name="slug" readonly />
                                     <!--end::Input-->
                                 </div>
-                                <div class="fv-row mb-8">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2">Loại sản phẩm</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <select name="type_id" id="select_cateid" autofocus
-                                        class="form-select form-select-solid" tabindex="-1" aria-hidden="true">
-                                        <option value="none">Chọn loại sản phẩm</option>
-                                        @foreach ($type as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <!--end::Input-->
-                                </div>
                             </div>
-                        </div>
-                        <div class="content " id="description" style="display:none">
-                            <textarea class="summernote" name="description"></textarea>
                         </div>
                         <div class="content" id="specification" style="display:none">
                             <div id="specification-input">
@@ -157,9 +121,6 @@
                             </div>
                             <button type="button" class="btn btn-light-primary me-auto" id="add_specification">Add
                                 Specification</button>
-                        </div>
-                        <div class="content" id="preview" style="display:none">
-                            <textarea class="summernote" name="preview"></textarea>
                         </div>
                         <!--begin::Actions-->
                         <div class="d-flex flex-stack pt-15">

@@ -99,7 +99,7 @@
                                         STT
                                     </th>
                                     <th class="min-w-125px">Tên loại sản phẩm</th>
-                                    {{-- <th class="min-w-125px">Tên viết tắt</th> --}}
+                                    <th class="min-w-125px">Chi tiết</th>
                                     <th class="text-end min-w-70px">Chức năng</th>
                                 </tr>
                                 <!--end::Table row-->

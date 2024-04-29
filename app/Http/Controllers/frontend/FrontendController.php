@@ -8,6 +8,7 @@ use App\Models\Atribute;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Description;
 use App\Models\Order;
 use App\Models\Type;
 use App\Models\Product_type;
@@ -107,7 +108,9 @@ class FrontendController extends Controller
             'specification_detail'
         ])->get();
         // $preview = Product::where('id', $product_detail->product_id)->select('preview')->first();
-        return view('frontend.pages.detail', compact('product_type', 'product_detail', 'capacity', 'price', 'color', 'image', 'specification'));
+        $product = Product::where('id', $product_detail->product_id)->first();
+        $description = Description::where('id', $product->description_id)->first();
+        return view('frontend.pages.detail', compact('product_type', 'product_detail', 'capacity', 'price', 'color', 'image', 'specification','description'));
     }
     public function getCart($user)
     {

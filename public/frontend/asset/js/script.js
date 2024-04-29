@@ -37,3 +37,13 @@ $('.product-slide').owlCarousel({
     autoplayHoverPause: true,
     navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
 })
+document.querySelector('.read-more-button').addEventListener('click', function() {
+    var content = document.querySelector('.info_tab--content');
+    var bg = document.querySelector('.bg-article');
+    content.classList.toggle('expanded');
+    if (content.classList.contains('expanded')) {
+        this.textContent = 'Thu gọn';
+    } else {
+        this.textContent = 'Xem thêm';
+    }
+});

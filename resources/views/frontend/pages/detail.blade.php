@@ -457,7 +457,7 @@
 
                             </div>
                           
-                            <div class="bg-galleryImg rt"></div>
+                            {{-- <div class="bg-galleryImg rt"></div>
                             <div class="gallery rt  ">
                                 <div class="gallery__top">
                                     <p class="gallery__title">0 ảnh từ khách hàng</p>
@@ -475,7 +475,7 @@
                                     <ul class="gallery__content">
                                     </ul>
                                 </div>
-                            </div>
+                            </div> --}}
 
 
                             <div class="rt-list">
@@ -505,19 +505,7 @@
                                                 không.Máy đã cập nhật ios 17.4.1</p>
                                         </div>
 
-                                        <div class="support">
-                                            <img src="https://cdn.tgdd.vn/mwgcart/stag-avacomment/images/logo_topzone.svg"
-                                                alt="image support">
-                                            Hỗ trợ kỹ thuật đã liên hệ hỗ trợ ngày 08/04/2024
-                                        </div>
-
-                                        <div class="cmt-command">
-                                            <a href="javascript:likeRating(56788593);" class="cmtl dot-circle-ava"
-                                                data-like="16">
-                                                <i id="l-56788593" class="iconcmt-thumpup"></i>Hữu ích (16)
-                                            </a>
-                                            <span class="cmtd dot-line">Đã dùng khoảng 2 ngày</span>
-                                        </div>
+                                        
                                     </li>
                                     <li id="r-56766120" class="par">
                                         <div class="cmt-top">
@@ -543,19 +531,7 @@
                                                 khác rất chắc chắn , nút giảm bị lỏng như hàng dỏm ý</p>
                                         </div>
 
-                                        <div class="support">
-                                            <img src="https://cdn.tgdd.vn/mwgcart/stag-avacomment/images/logo_topzone.svg"
-                                                alt="image support">
-                                            Đánh giá này đã được chuyển tới bộ phận hỗ trợ
-                                        </div>
-
-                                        <div class="cmt-command">
-                                            <a href="javascript:likeRating(56766120);" class="cmtl dot-circle-ava"
-                                                data-like="16">
-                                                <i id="l-56766120" class="iconcmt-thumpup"></i>Hữu ích (16)
-                                            </a>
-                                            <span class="cmtd dot-line">Đã dùng khoảng 4 ngày</span>
-                                        </div>
+                                        
                                     </li>
 
                                 </ul>

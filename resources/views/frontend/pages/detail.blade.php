@@ -102,6 +102,79 @@
                 </div>
                 </form>
             </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="detail-des">
+                    <form id="add-cart">
+                        <h1 class="product-detail--name">Iphone 15 pro max 256gb</h1>
+                        <strong class="product-detail--price">43.534.543₫</strong>
+                        <div class="product-size">
+                            <ul>
+                                                                                                                    <li class="product-size--option active"><a href="http://127.0.0.1:8000/product/iphone-15-pro-max-256gb">256GB</a>
+                                        </li>
+                                                                                                        </ul>
+                        </div>
+                        <div class="product-color">
+                            <span>Màu: </span>
+                            <ul>
+                                                                        <li class="active"><a data-id="1" style="background-color: #4f5765" class="product-color--option" href="http://127.0.0.1:8000/product/iphone-15-pro-max-256gb?color_id=1"></a>
+                                    </li>
+                                                                </ul>
+                        </div>
+                        <div class="promotion-detail">
+                            <span>Khuyến mãi</span>
+                            <div class="content-promo">
+                                <p>
+                                    <i></i>
+                                    <b>
+                                        Bảo Hành 24 tháng (12 tháng chính hãng + 12 tháng tại TopCare)
+                                    </b>
+                                </p>
+                                <p>
+                                    <i></i>
+                                    <b>
+                                        Thu cũ Đổi mới: Giảm đến 2 triệu (Tuỳ model máy cũ, Không kèm thanh toán qua cổng online, mua kèm)
+                                    </b>
+                                </p>
+                                <p>
+                                    <i></i>
+                                    <b>
+                                        Nhập mã VNPAYTGDD2 giảm ngay 1% (tối đa 200.000đ) khi thanh toán qua VNPAY-QR, áp dụng cho đơn hàng từ 3 Triệu
+                                    </b>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="btn-group">
+
+                            <div id="user-info" data-is-logged-in="" data-user-id=""></div>
+                            <button type="submit" class="btn-detail btn-detail--buy">Mua ngay</button>
+                        </div>
+                        <ul class="policy-product">
+                            <li>
+                                <span><i class="fa-solid fa-box"></i>Bộ sản phẩm gồm: Hộp, Sách hướng dẫn, Cây lấy
+                                    sim, Cáp Type C</span>
+                            </li>
+                            <li>
+
+                                <span><i class="fas fa-check-circle"></i>Hư gì đổi nấy 12 tháng tại cơ sở trên
+                                    toàn quốc</span>
+                            </li>
+                            <li>
+
+                                <span><i class="fa-solid fa-shield-halved"></i>Bảo hành chính hãng 1 năm</span>
+                            </li>
+                            <li>
+
+                                <span><i class="fa-solid fa-truck-fast"></i>Giao hàng nhanh toàn quốc</span>
+                            </li>
+                            <li>
+
+                                <span><i class="fa-solid fa-phone"></i>Tổng đài: 1900.9696.42 (7:30 - 22:00)</span>
+                            </li>
+                        </ul>
+
+                </form></div>
+                
+            </div>
         </div>
 
     </div>
@@ -112,6 +185,8 @@
             <h2 class="info_tab--item">Đánh giá sản phẩm</h2>
         </div>
         <div class="info_tab--contentbox">
+            <div class="bg-article"></div>
+            <a class="read-more-button">Xem thêm</a>
             {{-- @foreach ($specification as $item)
                 <div class="info_tab--content">
                     <button data-toggle="collapse" data-target="#collapse1" aria-expanded="true"
@@ -138,7 +213,7 @@
                     </div>
                 </div>
             @endforeach --}}
-            {{-- <div class="info_tab--content ">
+            {{-- <div class="info_tab--content ">   
                 @foreach ($specification as $item)
                     <div class="info_tab--content active">
                         <button type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $item->id }}"
@@ -166,8 +241,29 @@
                     </div>
                 @endforeach
             </div> --}}
-            <div class="info_tab--content active">
+            {{-- <div class="info_tab--content active">
                 {!! $preview->preview !!}
+            </div> --}}
+            <div class="access-needbuy">
+                <div class="an-title">
+                    <strong class="sg-access">
+                        Sản phẩm nên mua kèm
+                    </strong>
+                    
+                </div>
+                <div class="access-sg">
+                    <div class="item">
+                        <a href="">
+                            <div class="img-access-sg">
+                                <img src="https://cdn.tgdd.vn/Products/Images/9499/230315/s16/adapter-sac-type-c-20w-cho-iphone-ipad-apple-mhje3-101021-023343-650x650.png" alt="">
+                            </div>
+                        </a>
+                        <h3>Adapter sạc Apple USB-C 20W</h3>
+                        <span>
+                            <b>550.000đ</b>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
 

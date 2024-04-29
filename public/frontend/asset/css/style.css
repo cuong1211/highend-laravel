@@ -37,6 +37,7 @@ body {
     height: 100%;
 }
 
+
 a {
     text-decoration: none !important;
     display: block;
@@ -54,14 +55,14 @@ header {
 }
 
 .logo-img {
-    background-image: url('../img/icon-topzone.webp');
-    background-repeat: no-repeat;
-    display: inline-block;
-    height: 35px;
-    width: 128px;
+    /* background-image: url('../img/logo.png'); */
+    /* background-repeat: no-repeat;
+    display: inline-block; */
+    height: 60px;
+    width: 250px;
     line-height: 30px;
-    vertical-align: middle;
-    background-size: 514px 226px;
+    /* vertical-align: middle;
+    background-size: 514px 226px; */
 }
 
 .row {
@@ -688,7 +689,8 @@ li.active .product-color--option {
 }
 
 .btn-group {
-    width: 80%;
+    width: 100%;
+    padding-bottom: 10px;
 }
 
 .btn-detail {
@@ -696,7 +698,7 @@ li.active .product-color--option {
     background: #fff;
     font-size: 20px;
     padding: 10px 0;
-    width: 49%;
+    width: 100%;
     float: left;
     line-height: 36px;
     border: none;
@@ -743,10 +745,46 @@ li.active .product-color--option {
 
 .info_tab--contentbox {
     max-width: 590px;
-    margin: auto
+    margin: auto;
+
 }
 
-.info_tab--content button {
+.info_tab--content {
+    max-height: 300px;
+    /* Chiều cao tối đa ban đầu của nội dung */
+    overflow: hidden;
+    /* Ẩn phần nội dung vượt quá chiều cao tối đa */
+    transition: max-height 0.3s ease;
+    /* Hiệu ứng khi mở rộng nội dung */
+}
+
+.bg-article {
+    display: block;
+    background: linear-gradient(to bottom, rgba(255 255 255/0), rgba(255 255 255/62.5), rgba(255 255 255/1));
+    bottom: 100px;
+    height: 105px;
+    left: -150px;
+    position: relative;
+    width: 980px;
+    margin-bottom: 0;
+}
+
+.read-more-button {
+    color: #2f80ed;
+    display: block;
+    margin: 0 auto;
+    max-width: 340px;
+    padding: 10px 5px;
+    text-align: center;
+    position: relative;
+    bottom: 150px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    /* display: none; */
+}
+
+/* .info_tab--content button {
     display: block;
     overflow: hidden;
     background: #f5f5f7;
@@ -759,7 +797,7 @@ li.active .product-color--option {
     border: none;
     width: 100%;
     text-align: left;
-}
+} */
 
 .card-body ul {
     list-style: none;
@@ -797,6 +835,7 @@ li.active .product-color--option {
     font-weight: 500;
     color: #101010;
 }
+
 .user-background,
 .order-background {
     background-color: #f0f0f0;
@@ -1265,6 +1304,7 @@ li.active .product-color--option {
     border: 0;
     cursor: pointer;
 }
+
 .userheader,
 .alertsuccess {
     background-color: #f5f5f7;
@@ -1284,6 +1324,7 @@ li.active .product-color--option {
     display: inline-block;
     vertical-align: middle;
 }
+
 .usercontent,
 .ordercontent {
     display: block;
@@ -1298,6 +1339,7 @@ li.active .product-color--option {
     display: block;
     overflow: hidden;
 }
+
 .info-user,
 .info-order {
     background-color: #f5f5f7;
@@ -1308,6 +1350,7 @@ li.active .product-color--option {
     padding: 10px 0;
     margin: 0 10px 10px;
 }
+
 .info-user-header,
 .info-order-header {
     display: flex;
@@ -1430,14 +1473,17 @@ li.active .product-color--option {
     float: left;
     width: 11%;
 }
-.img-manager{
+
+.img-manager {
     float: left;
 }
+
 .img-manager img {
     display: block;
     overflow: hidden;
     width: 40px;
 }
+
 .box-order li .img-order img {
     display: block;
     overflow: hidden;
@@ -1610,4 +1656,176 @@ button.user-save {
     max-width: 1200px;
     margin: auto;
     min-width: 0;
+}
+
+.policy-product {
+    display: block;
+    overflow: hidden;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.policy-product li {
+    display: block;
+    overflow: hidden;
+    margin: 0 0 12px;
+}
+
+.policy-product li span {
+    display: block;
+    overflow: hidden;
+    line-height: 20px;
+    color: #fff;
+}
+
+.policy-product li span i {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 8px 0 0;
+    width: 22px;
+}
+
+.promotion-detail {
+    display: block;
+    overflow: hidden;
+    padding: 20px 15px 10px 15px;
+    background: #2f3033;
+    border-radius: 12px;
+    margin: 0 0 20px;
+}
+
+.promotion-detail span {
+    display: block;
+    overflow: hidden;
+    font-size: 15px;
+    line-height: 20px;
+    color: #fff;
+    padding: 0 5px 13px;
+    margin: 0 0 16px;
+    font-weight: bold;
+    border-bottom: 1px solid #414141;
+}
+
+.content-promo {
+    display: block;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.content-promo p {
+    display: block;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 21px;
+    color: #fff;
+    padding: 0 0 6px;
+    margin: 0;
+}
+
+.content-promo p i {
+    display: inline-block;
+    vertical-align: top;
+    width: 4px;
+    height: 4px;
+    border-radius: 10px;
+    background: #fff;
+    margin: 8px 5px 0;
+}
+
+.content-promo p b {
+    font-size: 15px;
+    line-height: 21px;
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% - 20px);
+    font-weight: 400;
+}
+
+.access-needbuy {
+    display: block;
+    max-width: 1200px;
+    min-width: 1024px;
+    margin: 45px auto 0;
+    overflow: hidden;
+    padding-top: 45px;
+}
+
+.an-title {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.sg-access {
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    color: #101010;
+    font-size: 26px;
+    line-height: 32px;
+    margin: 0 0 40px;
+}
+
+.access-sg {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 35px;
+}
+
+.access-sg div.item a {
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.access-sg div.item .img-access-sg {
+    display: block;
+    overflow: hidden;
+    width: 240px;
+    height: 240px;
+    margin: 0 auto 10px;
+}
+
+.access-sg div.item .img-access-sg img {
+    display: block;
+    width: 100%;
+}
+
+.access-sg div.item h3 {
+    display: block;
+    overflow: hidden;
+    color: #101010;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+    height: 40px;
+    margin: 0 0 5px;
+}
+
+.access-sg div.item span {
+    display: block;
+    overflow: hidden;
+    font-size: 15px;
+    line-height: 20px;
+    color: #323232;
+    text-align: center;
+}
+
+.access-sg div.item span b {
+    font-size: 18px;
+    line-height: 23px;
+    color: #101010;
+}
+
+.access-sg div.item {
+    width: 280px;
+    height: 318px;
+    margin-right: 20px;
+    margin-bottom: 40px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.access-sg div.item:last-child {
+    margin-right: 0;
 }

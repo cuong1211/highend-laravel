@@ -271,14 +271,53 @@
             </div>
         </div>
     </div> --}}
-    @foreach ($home as $category)
+    @if (Auth::check())
         <div class="category-box">
             <div>
                 <a class="brand">
-                    <img src="asset/img/apple.png" class="brand-icon"></i>
-                    <h2 class="brand-text">{{ $category->name }}</h2>
+                    {{-- <img src="asset/img/apple.png" class="brand-icon"></i> --}}
+                    <h2 class="brand-text">Sản phẩm dành cho bạn</h2>
                 </a>
             </div>
+            <div class="product-box">
+                <div class="product-slide owl-carousel owl-theme">
+                    @foreach ($product as $item)
+                        {{-- @php
+                        dd($item)
+                    @endphp --}}
+                        <div class="item">
+                            <div class="product">
+                                <a
+                                    href="{{ route('product.detail', ['product_type' => $item['slug'], 'atribute' => $item['color_id']]) }}">
+                                    <div class="product-img">
+                                        <img src="{{ route('image', ['image' => $item['img']]) }}" alt="">
+                                    </div>
+                                    <div class="product-info">
+
+                                        <div class="product-name">{{ $item['name'] }}</div>
+                                        <strong class="product-price">
+                                            <span class="price">{{ number_format($item['price'], 0, '.', '.') }}₫</span>
+                                            {{-- <span class="price-old">35.000.000₫</span> --}}
+                                        </strong>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    @endif
+    @foreach ($home as $category)
+        <div class="category-box">
+            @if ($category->type->count() > 0)
+                <div>
+                    <a class="brand">
+                        {{-- <img src="asset/img/apple.png" class="brand-icon"></i> --}}
+                        <h2 class="brand-text">{{ $category->name }}</h2>
+                    </a>
+                </div>
+            @endif
             <div class="product-box">
                 <div class="product-slide owl-carousel owl-theme">
                     @if ($category->type != null)
@@ -286,15 +325,21 @@
                             @foreach ($type->product as $key2 => $product)
                                 @foreach ($product->product_type as $key3 => $product_type)
                                     @php
-                                        $product_list = App\models\Product_type::where('product_id', $product_type->product_id)
+                                        $product_list = App\models\Product_type::where(
+                                            'product_id',
+                                            $product_type->product_id,
+                                        )
                                             ->with([
                                                 'atribute' => function ($q) use ($product_type) {
                                                     $q->select('product_type_id')->distinct();
                                                 },
                                             ])
                                             ->first();
-                                        
-                                        $atribute = App\models\Atribute::where('product_type_id', $product_list->atribute[0]->product_type_id)
+
+                                        $atribute = App\models\Atribute::where(
+                                            'product_type_id',
+                                            $product_list->atribute[0]->product_type_id,
+                                        )
                                             ->with([
                                                 'color.image' => function ($q) {
                                                     $q->where('is_thumbnail', 1)->first();
@@ -310,6 +355,9 @@
                                             <a
                                                 href="{{ route('product.detail', ['product_type' => $product_list->slug, 'atribute' => $atribute->color->id]) }}">
                                                 <div class="product-img">
+                                                    {{-- @php
+                                                        dd($atribute->color);
+                                                    @endphp --}}
                                                     <img src="{{ route('image', ['image' => $atribute->color->image[0]->image]) }}"
                                                         alt="">
                                                 </div>

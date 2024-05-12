@@ -3,6 +3,7 @@
 namespace App\Services\Product;
 
 use App\Http\Requests\ProductRequest;
+use App\Models\Description;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +28,7 @@ class ProductService
         $file->storeAs($destination_path, $filename);
         return $filename;
     }
-    public function index($type)
+    public function index($type, $id)
     {
         $index = Product::where('type_id', $type)->with([
             'type',
@@ -35,7 +36,6 @@ class ProductService
                 $query->with('specification_detail');
             },
         ])->get();
-        // dd($index);
         return $index;
     }
     public function create($data)
@@ -46,8 +46,11 @@ class ProductService
         $product->name = $data->name;
         $product->slug = $data->slug;
         $product->type_id = $data->type_id;
-        $product->description = $data->description;
-        $product->preview = $data->preview;
+        $description = new Description();
+        $description->description = $data->description;
+        $description->save();
+        $product->description_id = $description->id;
+        // $product->preview = $data->preview;
         $product->save();
         foreach ($data->specification_name as $key => $value) {
             $specification = new Specification();
@@ -62,6 +65,7 @@ class ProductService
                 $specification_detail->save();
             }
         }
+
         return $product;
     }
     public function edit($data, $id)
@@ -90,16 +94,17 @@ class ProductService
         $product->name = $data->name;
         $product->slug = $data->slug;
         $product->type_id = $data->type_id;
-        if (strpos($data->description, '"') !== false) {
-            $product->description = str_replace('"', "'", $data->description);
-        } else {
-            $product->description = $data->description;
+        $description = Description::where('id', $product->description_id)->first();
+        if (!$description) {
+            $description = new Description();
         }
-        if (strpos($data->preview, '"') !== false) {
-            $product->preview = str_replace('"', "'", $data->preview);
-        } else {
-            $product->preview = $data->preview;
-        }
+        $description->description = $data->description;
+        $description->save();
+        // if (strpos($data->preview, '"') !== false) {
+        //     $product->preview = str_replace('"', "'", $data->preview);
+        // } else {
+        //     $product->preview = $data->preview;
+        // }
 
         $product->save();
         foreach ($data->specification_name as $key => $value) {

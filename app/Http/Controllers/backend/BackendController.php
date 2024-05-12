@@ -24,9 +24,21 @@ class BackendController extends Controller
         $top_product_count = [];
         $category_label = [];
         $category_earn = [];
+        // count order in month from now
+        $orderCount = Order::where('status', 2)
+            ->whereMonth('order_date', date('m'))  // Lọc theo tháng hiện tại
+            ->whereYear('order_date', date('Y'))   // Lọc theo năm hiện tại
+            ->count();  // Đếm số lượng đơn hàng
+
+        // dd($orderCount);
+        $totalOrder = Order::where('status', 2)
+            ->whereMonth('order_date', date('m'))  // Lọc theo tháng hiện tại
+            ->whereYear('order_date', date('Y'))   // Lọc theo năm hiện tại
+            ->sum('total');  // Tính tổng doanh thu
         for ($i = 0; $i < 7; $i++) {
             $date[] = date('Y-m-d', strtotime('-' . $i . ' days'));
         }
+        // get month in year
         // reverse array
         $date = array_reverse($date);
         for ($i = 0; $i < count($date); $i++) {
@@ -63,7 +75,8 @@ class BackendController extends Controller
         }
         $order_complete = Order::where('status', 2)->count();
         $order_fail = Order::where('status', 3)->count();
-        return view('backend.pages.main', compact('date', 'total', 'top_product_label', 'top_product_count', 'category_label', 'category_earn', 'order_complete', 'order_fail'));
+
+        return view('backend.pages.main', compact('date', 'total', 'top_product_label', 'top_product_count', 'category_label', 'category_earn', 'order_complete', 'order_fail','orderCount','totalOrder'));
     }
     public function getSlug(Request $request)
     {

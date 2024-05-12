@@ -174,7 +174,7 @@
 
         .login input[type='password'],
         .login input[type='text'] {
-            background-color: #3b4148;
+            /* background-color: #3b4148; */
             border-bottom-left-radius: 0;
             border-top-left-radius: 0;
         }

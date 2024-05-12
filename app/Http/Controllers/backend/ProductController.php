@@ -31,7 +31,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('backend.pages.product.create');
+        
     }
 
     /**
@@ -58,7 +58,7 @@ class ProductController extends Controller
     {
         switch ($id) {
             case 'get-list':
-                $index = $this->productservice->index($type);
+                $index = $this->productservice->index($type, $id);
                 // if ($request->search_table) {
                 //     $cate = $this->productservice->search($request);
                 // }

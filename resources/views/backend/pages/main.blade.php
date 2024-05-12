@@ -20,7 +20,7 @@
                     <div class="col-xl-4">
                         <div class="card-header border-0 pt-5">
                             <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bolder fs-3 mb-1">Top 5 sản phẩm bán chạy nhất</span>
+                                <span class="card-label fw-bolder fs-3 mb-1">Top sản phẩm bán chạy nhất</span>
                             </h3>
                         </div>
                         <div class="card-body">
@@ -52,8 +52,8 @@
                                             </svg>
                                         </span>
                                         <!--end::Svg Icon-->
-                                        <div class="text-white fw-bolder fs-2 mb-2 mt-5">30 đơn</div>
-                                        <div class="fw-bold text-white">Tổng số đơn hàng tháng 12</div>
+                                        <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{ $orderCount }}</div>
+                                        <div class="fw-bold text-white">Tổng số đơn hàng tháng {{ date('m-Y') }}</div>
                                     </div>
                                     <!--end::Body-->
                                 </a>
@@ -80,8 +80,8 @@
                                             </svg>
                                         </span>
                                         <!--end::Svg Icon-->
-                                        <div class="text-white fw-bolder fs-2 mb-2 mt-5">547.000.000đ</div>
-                                        <div class="fw-bold text-white">Doanh thu tháng 12</div>
+                                        <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{ number_format($totalOrder, 0, '.', '.') }} VNĐ</div>
+                                        <div class="fw-bold text-white">Doanh thu tháng {{ date('m-Y') }}</div>
                                     </div>
                                     <!--end::Body-->
                                 </a>
@@ -124,6 +124,21 @@
 @endsection
 @push('jscustom')
     <script>
+        function number_format(number, decimals, dec_point, thousands_sep) {
+            // This ensures we have a number and it respects the desired number of decimal places
+            number = Number(number).toFixed(decimals);
+
+            // Split the number into the integer part and decimal part (if any)
+            let parts = number.split('.');
+            let integerPart = parts[0];
+            let decimalPart = parts.length > 1 ? dec_point + parts[1] : '';
+
+            // Add thousands separator
+            integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep);
+
+            return integerPart + decimalPart;
+        }
+
         function sale_chart() {
             var element = document.getElementById('kt_apexcharts_3');
 
@@ -138,7 +153,7 @@
 
             var options = {
                 series: [{
-                    name: 'aaa',
+                    name: 'Doanh thu',
                     data: {!! json_encode($total) !!}
                 }],
                 chart: {
@@ -231,7 +246,7 @@
                     },
                     y: {
                         formatter: function(val) {
-                            return '$' + val + ' thousands'
+                            return '' + number_format(val, 0, '.', '.') + 'VNĐ'
                         }
                     }
                 },
@@ -254,6 +269,7 @@
             var chart = new ApexCharts(element, options);
             chart.render();
         }
+
         function product_chart() {
             var ctx = document.getElementById('kt_chartjs_3');
 
@@ -308,6 +324,7 @@
             // Init ChartJS -- for more info, please visit: https://www.chartjs.org/docs/latest/
             var myChart = new Chart(ctx, config);
         }
+
         function category_chart() {
             var ctx = document.getElementById('kt_chartjs_category');
 
@@ -363,6 +380,7 @@
             // Init ChartJS -- for more info, please visit: https://www.chartjs.org/docs/latest/
             var myChart = new Chart(ctx, config);
         }
+
         function order_chart() {
             var ctx = document.getElementById('kt_chartjs_order');
 
@@ -377,17 +395,17 @@
             var fontFamily = KTUtil.getCssVariableValue('--bs-font-sans-serif');
 
             // Chart labels
-            const labels = ['Đã hoàn thành','Đã hủy'];
+            const labels = ['Đã hoàn thành', 'Đã hủy'];
             console.log(labels);
 
             // Chart data
             const data = {
                 labels: labels,
                 datasets: [{
-                    data: [{!! json_encode($order_complete) !!},{!! json_encode($order_fail) !!}],
+                    data: [{!! json_encode($order_complete) !!}, {!! json_encode($order_fail) !!}],
                     backgroundColor: [
                         primaryColor,
-                        dangerColor,,
+                        dangerColor, ,
                     ],
                     hoverOffset: 4
                 }, ]

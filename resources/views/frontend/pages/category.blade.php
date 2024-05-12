@@ -3,7 +3,7 @@
     <div class="content">
         <div>
             <div class="d-flex justify-content-center p-4">
-                <img src="asset/img/apple.png" class="brand-icon"></i>
+                {{-- <img src="asset/img/apple.png" class="brand-icon"></i> --}}
                 <h2 class="brand-text">{{ $category->name }}</h2>
             </div>
         </div>

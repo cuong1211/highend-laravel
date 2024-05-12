@@ -4,7 +4,9 @@
         <div class="row">
             <div class="col-2">
                 <div class="logo">
-                    <a href="{{ route('home') }}"><i class="logo-img"></i></a>
+                    <a href="{{ route('home') }}">
+                        <img class="logo-img" src="{{ asset('frontend') }}/asset/img/logo.svg" alt="">
+                    </a>
                 </div>
             </div>
             <div class="col-8">
@@ -34,8 +36,7 @@
                                     <ul>
                                         <li><a href="{{ route('profile', ['user' => Auth::user()->id]) }}">Thông tin</a>
                                         </li>
-                                        <li><a
-                                                href="{{ route('frontend.ordermanager', ['user' => Auth::user()->id]) }}">Đơn
+                                        <li><a href="{{ route('frontend.ordermanager', ['user' => Auth::user()->id]) }}">Đơn
                                                 hàng</a></li>
                                         <li><a href="{{ route('logout') }}">Đăng xuất</a></li>
                                     </ul>
@@ -52,7 +53,7 @@
 @push('jscustom')
     <script>
         $(document).ready(function() {
-            var url = "{{ route('frontend.ordermanager', ['user' => 'user_id']) }}";
+            var url = "{{ route('cart', ['user' => 'user_id']) }}";
             var userInfo = document.getElementById('user-info');
             var isLoggedIn = userInfo.getAttribute('data-is-logged-in');
             var userId = userInfo.getAttribute('data-user-id');

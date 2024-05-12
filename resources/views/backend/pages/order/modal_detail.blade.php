@@ -68,7 +68,7 @@
                                             <!--begin::Logo-->
                                             <a href="#">
                                                 <img alt="Logo"
-                                                    src="{{ asset('backend/assets/media/logos/logo-1.png') }}"
+                                                    src="{{ asset('backend/assets/media/logos/logo.png') }}"
                                                     style="padding: 5px;
                                                 width: 150px;" />
                                             </a>

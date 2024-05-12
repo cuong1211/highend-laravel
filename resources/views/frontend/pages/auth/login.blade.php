@@ -224,8 +224,8 @@
                     <label for="login__username"><svg class="icon">
                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
                         </svg><span class="hidden">Email</span></label>
-                    <input id="login__username" type="text" name="email" class="form__input"
-                        placeholder="Username" required>
+                    <input id="login__username" type="text" name="email" class="form__input" placeholder="Username"
+                        required>
                 </div>
 
                 <div class="form__field">
@@ -242,7 +242,8 @@
 
             </form>
 
-            <p class="text--center">Bạn chưa có tài khoản<a href="{{route('register')}}">Đăng kí ngay</a> <svg class="icon">
+            <p class="text--center">Bạn chưa có tài khoản<a href="{{ route('register') }}">Đăng kí ngay</a> <svg
+                    class="icon">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="assets/images/icons.svg#arrow-right">
                     </use>
                 </svg></p>
@@ -285,7 +286,11 @@
                         if (data.type == 'success') {
                             window.location.reload();
                         } else {
-                            alert('Tài khoản hoặc mật khẩu không đúng');
+                            let errors = data.responseJSON.errors;
+                            console.log(errors);
+                            $.each(errors, function(key, value) {
+                                toastr[data.type](value, 'Error');
+                            });
                         }
                     }
                 })

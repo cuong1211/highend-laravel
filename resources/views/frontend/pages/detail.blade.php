@@ -160,23 +160,25 @@
         <div class="access-needbuy">
             <div class="an-title">
                 <strong class="sg-access">
-                    Sản phẩm nên mua kèm
+                    Sản phẩm liên quan
                 </strong>
 
             </div>
-            <div class="access-sg">
-                <div class="item">
-                    <a href="">
-                        <div class="img-access-sg">
-                            <img src="https://cdn.tgdd.vn/Products/Images/9499/230315/s16/adapter-sac-type-c-20w-cho-iphone-ipad-apple-mhje3-101021-023343-650x650.png"
-                                alt="">
-                        </div>
-                    </a>
-                    <h3>Adapter sạc Apple USB-C 20W</h3>
-                    <span>
-                        <b>550.000đ</b>
-                    </span>
-                </div>
+            <div class="access-sg product-slide owl-carousel owl-theme">
+                @foreach ($recommendItems as $item)
+                    <div class="item">
+                        <a
+                            href="{{ route('product.detail', ['product_type' => $item['slug'], 'atribute' => $item['color_id']]) }}">
+                            <div class="img-access-sg">
+                                <img src="{{ route('image', ['image' => $item['img']]) }}" alt="">
+                            </div>
+                        </a>
+                        <h3>{{ $item['name'] }}</h3>
+                        <span>
+                            <b>{{ number_format($item['price'], 0, '.', '.') }}đ</b>
+                        </span>
+                    </div>
+                @endforeach
             </div>
         </div>
         <div class="info_tab">
@@ -227,18 +229,23 @@
                 <div class="rating-topzone rc-topzone">
                     <div class="rating-topzonecmt-hascmt">
                         <div class="boxrate rate-topzone">
-                            <h2 class="boxrate__title">Đánh giá iPhone 15 Pro Max</h2>
+                            <h2 class="boxrate__title">Đánh giá {{ $product_detail->name }}</h2>
                             <div class="boxrate__top">
                                 <div class="box-star">
                                     <div class="point">
-                                        <p>3.7</p>
-                                        <i class="iconcmt-allstar"></i>
-                                        <i class="iconcmt-allstar"></i>
-                                        <i class="iconcmt-allstar"></i>
-                                        <i class="iconcmt-allhalfstar"></i>
-                                        <i class="iconcmt-allunstar"></i>
+                                        <p style="margin-bottom:0">{{ $ratetotal }}</p>
+                                        @for ($i = 0; $i < 5; $i++)
+                                            @if ($i < $ratetotal)
+                                                <i class="iconcmt-allstar"></i>
+                                            @else
+                                                {{-- <i class="iconcmt-unstar"></i>
+                                                <i class="iconcmt-allhalfstar"></i> --}}
+                                                <i class="iconcmt-allunstar"></i>
+                                            @endif
+                                        @endfor
                                         <a href="/iphone/iphone-15-pro-max/danh-gia" data-total="6" data-site="16"
-                                            style="cursor: pointer" class="total-cmtrt">6 đánh giá </a>
+                                            style="cursor: pointer" class="total-cmtrt">{{ $count }} đánh giá
+                                        </a>
                                     </div>
                                     <ul class="rate-list">
                                         <li>
@@ -246,45 +253,45 @@
                                                 5<i class="iconcmt-blackstar"></i>
                                             </div>
                                             <div class="timeline-star">
-                                                <p class="timing" style="width: 50%"></p>
+                                                <p class="timing" style="width: {{$fivestar}}%;margin-bottom: 0 "></p>
                                             </div>
-                                            <span class="number-percent">50%</span>
+                                            <span class="number-percent" style="margin-bottom: 0">{{$fivestar}}%</span>
                                         </li>
                                         <li>
                                             <div class="number-star">
                                                 4<i class="iconcmt-blackstar"></i>
                                             </div>
                                             <div class="timeline-star">
-                                                <p class="timing" style="width: 0%"></p>
+                                                <p class="timing" style="width: {{$fourstar}}%;margin-bottom: 0"></p>
                                             </div>
-                                            <span class="number-percent">0%</span>
+                                            <span class="number-percent" style="margin-bottom: 0">{{$fourstar}}%</span>
                                         </li>
                                         <li>
                                             <div class="number-star">
                                                 3<i class="iconcmt-blackstar"></i>
                                             </div>
                                             <div class="timeline-star">
-                                                <p class="timing" style="width: 17%"></p>
+                                                <p class="timing" style="width: {{$threestar}}%;margin-bottom: 0"></p>
                                             </div>
-                                            <p class="number-percent dsp">17%</p>
+                                            <p class="number-percent dsp" style="margin-bottom: 0">{{$threestar}}%</p>
                                         </li>
                                         <li>
                                             <div class="number-star">
                                                 2<i class="iconcmt-blackstar"></i>
                                             </div>
                                             <div class="timeline-star">
-                                                <p class="timing" style="width: 33%"></p>
+                                                <p class="timing" style="width: {{$twostar}}%;margin-bottom: 0"></p>
                                             </div>
-                                            <p class="number-percent dsp">33%</p>
+                                            <p class="number-percent dsp" style="margin-bottom: 0">{{$twostar}}%</p>
                                         </li>
                                         <li>
                                             <div class="number-star">
                                                 1<i class="iconcmt-blackstar"></i>
                                             </div>
                                             <div class="timeline-star">
-                                                <p class="timing" style="width: 0%"></p>
+                                                <p class="timing" style="width: {{$onestar}}%"></p>
                                             </div>
-                                            <p class="number-percent dsp">0%</p>
+                                            <p class="number-percent dsp" style="margin-bottom: 0">{{$onestar}}%</p>
                                         </li>
                                     </ul>
                                 </div>
@@ -456,7 +463,7 @@
                                 </div> --}}
 
                             </div>
-                          
+
                             {{-- <div class="bg-galleryImg rt"></div>
                             <div class="gallery rt  ">
                                 <div class="gallery__top">
@@ -485,7 +492,7 @@
                                             <p class="cmt-top-name">Nguyễn Thị Quỳnh Như</p>
                                             <div class="confirm-buy">
                                                 <i class="iconcmt-confirm"></i>
-                                                Đã mua tại TopZone
+                                                Đã mua tại High-end
                                             </div>
 
                                         </div>
@@ -505,14 +512,14 @@
                                                 không.Máy đã cập nhật ios 17.4.1</p>
                                         </div>
 
-                                        
+
                                     </li>
                                     <li id="r-56766120" class="par">
                                         <div class="cmt-top">
                                             <p class="cmt-top-name">Bùi tấn khải</p>
                                             <div class="confirm-buy">
                                                 <i class="iconcmt-confirm"></i>
-                                                Đã mua tại TopZone
+                                                Đã mua tại High-end
                                             </div>
 
                                         </div>
@@ -531,14 +538,14 @@
                                                 khác rất chắc chắn , nút giảm bị lỏng như hàng dỏm ý</p>
                                         </div>
 
-                                        
+
                                     </li>
 
                                 </ul>
                                 <div class="box-flex">
-                                    <a href="/iphone/iphone-15-pro-max/danh-gia" class="c-btn-rate btn-view-all">Xem 6
+                                    <a href="/iphone/iphone-15-pro-max/danh-gia" class="c-btn-rate btn-view-all" style="width:100%">Xem 6
                                         đánh giá</a>
-                                    <div class="c-btn-rate btn-write">Viết đánh giá</div>
+                                    {{-- <div class="c-btn-rate btn-write">Viết đánh giá</div> --}}
 
                                 </div>
                             </div>
@@ -572,6 +579,16 @@
             }
             document.getElementById(content).style.display = "block";
         }
+        document.querySelector('.read-more-button').addEventListener('click', function() {
+            var content = document.querySelector('.info_tab--content');
+            var bg = document.querySelector('.bg-article');
+            content.classList.toggle('expanded');
+            if (content.classList.contains('expanded')) {
+                this.textContent = 'Thu gọn';
+            } else {
+                this.textContent = 'Xem thêm';
+            }
+        });
         $(document).ready(function() {
             window.addEventListener('message', function(event) {
                 if (event.data === 'login_success') {

@@ -42,6 +42,7 @@ route::group(["namespace" => "frontend"], function () {
     route::get('/shop/{category:slug}', [FrontendController::class, 'getCategory'])->name('category');
     route::get('/product/{product_type:slug}', [FrontendController::class, 'getProductDetail'])->name('product.detail');
     Route::group(['middleware' => CheckLogin::class], function () {
+        Route::get('/home/{id}', [FrontendController::class, 'recommend'])->name('home.recommend');
         route::get('/profile/{user}', [FrontendUserController::class, 'getProfile'])->name('profile');
         route::put('/profile/{user}', [FrontendUserController::class, 'editProfile'])->name('editProfile');
         route::get('/cart/{user}', [FrontendController::class, 'getCart'])->name('cart');
@@ -54,6 +55,7 @@ route::group(["namespace" => "frontend"], function () {
         route::get('/checkout/{order}/complete', [FrontendController::class, 'getCheckoutComplete'])->name('frontend.order_complete');
         route::get('/order-manager/{user}', [FrontendOrderController::class, 'getOrderManager'])->name('frontend.ordermanager');
         route::put('/order-manager/{user}/{order}', [FrontendOrderController::class, 'updateOrder'])->name('frontend.ordermanager.update');
+        route::post('/order-manager/rate', [FrontendOrderController::class, 'RatingProduct'])->name('frontend.rate');
         route::get('/logout', [AuthController::class, 'getLogout'])->name('logout');
     });
 });

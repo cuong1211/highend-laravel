@@ -1,0 +1,2 @@
+thư mục chứa ảnh: https://drive.google.com/file/d/1bROc9fQjWDm5V-WEltuu1HsQ9C5tgUoy/view?usp=sharing
+Lưu ý: copy file vào đường dẫn storage/app/public ở source code 

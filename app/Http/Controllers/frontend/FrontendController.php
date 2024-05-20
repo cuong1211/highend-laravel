@@ -267,6 +267,7 @@ class FrontendController extends Controller
             return $b['score'] - $a['score'];
         });
         $similarItems = array_slice($similarItems, 0, 5);
+        <!-- dd($similarItems); -->
         // $similarItems contain information of item
         // foreach ($similarItems as $key => $item) {
         //     // find product by id and add category

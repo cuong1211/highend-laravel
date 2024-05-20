@@ -7,6 +7,7 @@
 
 <body>
     <div id="app">
+        <div class="bg-sg"></div>
         @include('frontend.layout.header')
         <section>
             @yield('content')

@@ -45,6 +45,7 @@ a {
 
 header {
     background-color: black;
+    height: 64px;
 }
 
 .sticky {
@@ -2257,4 +2258,180 @@ button.user-save {
 .rating-topzonecr-star p.active-slt {
     color: #ff9f00;
     font-weight: bold;
+}
+
+.form-search {
+    display: none;
+    width: 600px;
+    margin: auto;
+    z-index: 9999;
+    height: 60px;
+    padding: 19px 0;
+}
+
+.form-search.active {
+    display: block;
+    width: 600px;
+    animation-name: specialFadeOut;
+    transition: opacity .2s cubic-bezier(.645, .045, .355, 1);
+}
+
+@keyframes specialFadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(.8);
+    }
+}
+
+.click-search {
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+
+.click-search.active .topzone-search {
+    left: 0;
+    opacity: 1;
+}
+
+[class^="topzone-"],
+[class*="topzone-"] {
+    background-image: url(//cdn.tgdd.vn/mwgcart/topzone/images/icon-topzone.webp);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    vertical-align: middle;
+    background-size: 514px 226px;
+}
+
+.click-search .topzone-search {
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    left: 60px;
+    transition: .55s ease-out;
+    opacity: .2;
+}
+
+.topzone-search {
+    background-position: -187px -11px;
+    width: 18px;
+    height: 18px;
+}
+.click-search.active input {
+    padding-left: 30px;
+    opacity: 1;
+}
+.click-search input {
+    float: right;
+    width: 100%;
+    padding-left: 85px;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 0;
+    background: unset;
+    color: #fff;
+    transition: .65s ease-out;
+    opacity: .2;
+    animation-name: specialFadeInRight;
+    animation-duration: 400ms;
+    animation-fill-mode: both;
+    animation-delay: 350ms;
+}
+input[type=text], input[type=tel], textarea {
+    -webkit-appearance: none;
+}
+.click-search .topzone-delSearch {
+    position: absolute;
+    right: 0;
+    top: 1px;
+    cursor: pointer;
+}
+.topzone-delSearch {
+    background-position: -214px -12px;
+    width: 14px;
+    height: 14px;
+}
+.bg-sg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    opacity: .8;
+    z-index: 9998;
+    display: none;
+}
+.sg-search small {
+    display: block;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 21px;
+    color: #888;
+}
+.sg-search {
+    position: absolute;
+    top: 60px;
+    width: 600px;
+    right: 0;
+    left: 0;
+    margin: auto;
+    padding: 20px 25px;
+    border-radius: 0 0 16px 16px;
+    background: #fff;
+    display: none;
+    transition: .5s ease-out;
+}
+.list-sg-search {
+    display: block;
+    overflow: hidden;
+}
+.list-sg-search li {
+    display: block;
+    overflow: hidden;
+    padding: 15px 0 0;
+}
+.list-sg-search li a {
+    display: block;
+    overflow: hidden;
+}
+.list-sg-search li a .img-search {
+    float: left;
+    width: 60px;
+    margin: 0 17px 0 0;
+}
+.list-sg-search li a img {
+    display: block;
+    width: 100%;
+}
+.list-sg-search li a .text-img {
+    display: block;
+    overflow: hidden;
+}
+.list-sg-search li a span {
+    display: block;
+    overflow: hidden;
+    color: #222;
+    font-size: 14px;
+    line-height: 21px;
+    padding: 0 0 4px;
+}
+.list-sg-search li a p {
+    display: block;
+    overflow: hidden;
+    color: #444;
+    font-size: 15px;
+    line-height: 20px;
+}
+.list-sg-search li a b {
+    font-size: 18px;
+    line-height: 23px;
+    color: #222;
 }

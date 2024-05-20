@@ -486,8 +486,29 @@ class FrontendController extends Controller
     public function getSearch(Request $request)
     {
         $search = $request->search;
-        $product = Product::where('name', 'like', '%' . $search . '%')->get();
-        return view('frontend.pages.search', compact('product'));
+        $product_type = Product_type::where('name', 'like', '%' . $search . '%')->get();
+        foreach ($product_type as $item) {
+            $slug = $item->slug;
+            $attribute = Atribute::where('product_type_id', $item->id)->first();
+            $color = $attribute->color;
+            $image = $color->image->where('is_thumbnail', 1)->first();
+            $product[] = [
+                'id' => $item->id,
+                'name' => $item->name,
+                'slug' => $slug,
+                'color_id' => $color->id,
+                'price' => $attribute->price,
+                'img' => $image->image,
+            ];
+        }
+        return response()->json(
+            [
+                'type' => 'success',
+                'title' => 'success',
+                'content' => $product,
+            ],
+            200
+        );
     }
     public function postCheckout(OrderRequest $request)
     {

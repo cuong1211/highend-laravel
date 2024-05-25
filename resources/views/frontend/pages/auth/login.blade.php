@@ -284,15 +284,20 @@
                     },
                     success: function(data) {
                         if (data.type == 'success') {
-                            window.location.reload();
-                        } else {
-                            let errors = data.responseJSON.errors;
-                            console.log(errors);
-                            $.each(errors, function(key, value) {
-                                toastr[data.type](value, 'Error');
-                            });
+                            toastr[data.type](data.content, 'Thông báo');
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 500);
+
                         }
-                    }
+                    },
+                    error: function(data) {
+                        let errors = data.responseJSON.errors;
+                        console.log(errors);
+                        $.each(errors, function(key, value) {
+                            toastr[data.type](value, 'Error');
+                        });
+                    },
                 })
             })
         })

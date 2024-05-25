@@ -31,7 +31,8 @@
                         <ul class="listing-cart">
                             @foreach ($cart as $carts)
                                 @php
-                                    $product = App\models\Product_type::where('id', $carts->product_type_id)->first()->name;
+                                    $product = App\models\Product_type::where('id', $carts->product_type_id)->first()
+                                        ->name;
                                     $image = App\models\Image::where('color_id', $carts->color_id)
                                         ->where('is_thumbnail', 1)
                                         ->first()->image;
@@ -58,9 +59,9 @@
                                             </div>
                                             <span>
                                                 {{ number_format($carts->price, 0, '.', '.') }}đ
-                                                <strike>
+                                                {{-- <strike>
                                                     16.000.000đ
-                                                </strike>
+                                                </strike> --}}
                                             </span>
                                         </div>
                                         <div class="quantity-color">
@@ -129,14 +130,23 @@
                                                 khác</small>
                                         </div>
                                     </div>
+                                    <div class="cntry-district" style="display: none">
+                                        <select name="city" id="select-city" class="select-address"></select>
+                                        <select name="district" id="select-district" class="select-address"></select>
+                                        <select name="ward" id="select-ward" class="select-address"></select>
+                                        <input name="address" class="select-address input-address" type="text"
+                                            placeholder="Số nhà, tên đường">
+                                    </div>
+                                @else
+                                    <div class="cntry-district">
+                                        <select name="city" id="select-city" class="select-address"></select>
+                                        <select name="district" id="select-district" class="select-address"></select>
+                                        <select name="ward" id="select-ward" class="select-address"></select>
+                                        <input name="address" class="select-address input-address" type="text"
+                                            placeholder="Số nhà, tên đường">
+                                    </div>
                                 @endif
-                                <div class="cntry-district">
-                                    <select name="city" id="select-city" class="select-address"></select>
-                                    <select name="district" id="select-district" class="select-address"></select>
-                                    <select name="ward" id="select-ward" class="select-address"></select>
-                                    <input name="address" class="select-address input-address" type="text"
-                                        placeholder="Số nhà, tên đường">
-                                </div>
+
                             </div>
                         </div>
                         <div class="anotheroption">
@@ -357,7 +367,7 @@
             })
 
         });
-        $('.cntry-district').hide();
+        // $('.cntry-district').hide();
         $('.add_address').click(function() {
             $('.cntry-district').show();
             $('.input-address').attr('required', true);

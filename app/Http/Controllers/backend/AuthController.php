@@ -45,16 +45,19 @@ class AuthController extends Controller
                 ]);
             }
         } else {
-            return redirect()->route('login')->with('error', 'Email hoặc mật khẩu không đúng.');
+            return response()->json([
+                'type' => 'error',
+                'title' => 'error',
+                'content' => 'Đăng nhập thất bại'
+            ]);
         }
     }
     function getLogout()
     {
-        if(Auth::user()->isAdmin == 1){
+        if (Auth::user()->isAdmin == 1) {
             Auth::logout();
             return redirect()->route('backend.login');
-        }
-        else{
+        } else {
             Auth::logout();
             return redirect()->route('home');
         }
@@ -64,6 +67,7 @@ class AuthController extends Controller
     {
 
         $data = $request->validated();
+        // dd($data);
         $create = $this->userservice->create($data);
         if ($create) {
             return response()->json(

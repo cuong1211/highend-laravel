@@ -48,7 +48,7 @@ class AuthController extends Controller
             return response()->json([
                 'type' => 'error',
                 'title' => 'error',
-                'content' => 'Đăng nhập thất bại'
+                'content' => 'Sai email hoặc mật khẩu'
             ]);
         }
     }

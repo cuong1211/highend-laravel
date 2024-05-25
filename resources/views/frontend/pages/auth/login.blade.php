@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Login Page with Username and Password Example</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" href="./style.css">
     <style>
         .align {
@@ -268,6 +269,7 @@
     </body>
     <!-- partial -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#form_login').submit(function(e) {
@@ -283,12 +285,12 @@
                         _token: "{{ csrf_token() }}"
                     },
                     success: function(data) {
+                        toastr[data.type](data.content, 'Thông báo');
                         if (data.type == 'success') {
                             toastr[data.type](data.content, 'Thông báo');
                             setTimeout(function() {
                                 window.location.reload();
                             }, 500);
-
                         }
                     },
                     error: function(data) {

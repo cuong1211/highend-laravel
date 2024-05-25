@@ -8,269 +8,53 @@
         <div class="item"><img src="asset/img/banner-5.webp" alt=""></div>
         <div class="item"><img src="asset/img/banner-6.webp" alt=""></div>
     </div>
-    {{-- <div class="flash-sale">
+    <div class="flash-sale">
         <div class="flash-sale_title">
             <div class="flash-sale_icon">
                 <div>
-                    <img src="asset/img/icon-fs.png" alt="">
+                    <img src="asset/img/icon-fs_2.png" alt="">
                 </div>
                 <div class="end-time">
-                    <span>Thời gian còn lại</span>
-                    <span class="time">12:00:00</span>
+                    {{-- <span>Thời gian còn lại</span>
+                    <span class="time">12:00:00</span> --}}
                 </div>
             </div>
             <div class="list-time">
-                <a href="" class="active">
+                {{-- <a href="" class="active">
                     <span class="list-time_title">Đang diễn ra</span>
                     <span class="time">12:00 - 11:00</span>
                 </a>
                 <a href="">
                     <span class="list-time_title">Sắp diễn ra</span>
                     <span class="time">12:00 - 11:00</span>
-                </a>
+                </a> --}}
             </div>
         </div>
         <div class="flash-sale_product owl-carousel owl-theme">
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
+            @foreach ($TopSellProducts as $item)
+                <div class="item">
+                    <div class="product">
+                        <a
+                            href="{{ route('product.detail', ['product_type' => $item['slug'], 'atribute' => $item['color_id']]) }}">
+                            <div class="product-img">
+                                <img src="{{ route('image', ['image' => $item['img']]) }}" alt="">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">{{ $item['name'] }}</div>
+                                <strong class="product-price">
+                                    <span class="price">{{ number_format($item['price'], 0, '.', '.') }}₫</span>
+                                    {{-- <span class="price-old">35.000.000₫<span class="sale">-10%</span></span> --}}
+                                </strong>
+                                <div class="product-buy">
+                                    <button class="btn-buy">Mua ngay</button>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
-            </div>
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product">
-                    <div class="product-img">
-                        <img src="asset/img/product.webp" alt="">
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">Iphone 12 Pro Max 512GB</div>
-                        <strong class="product-price">
-                            <span class="price">30.000.000₫</span>
-                            <span class="price-old">35.000.000₫<span class="sale">-10%</span></span>
-                        </strong>
-                        <div class="product-buy">
-                            <button class="btn-buy">Mua ngay</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
-    </div> --}}
+    </div>
     @if (Auth::check())
         <div class="category-box">
             <div>

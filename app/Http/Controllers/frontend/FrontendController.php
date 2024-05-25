@@ -49,26 +49,96 @@ class FrontendController extends Controller
             },
         ])->get();
         // dd(json_decode($home));
+        $topProducts = Product_type::select('product_types.id', 'product_types.name', 'product_types.slug', DB::raw('COUNT(orders.id) AS total_orders'))
+            ->leftJoin('carts', 'carts.product_type_id', '=', 'product_types.id')
+            // have order_id
+            ->leftJoin('orders', 'carts.order_id', '=', 'orders.id')
+            ->groupBy('product_types.id', 'product_types.name', 'product_types.slug')
+            ->orderByDesc('total_orders')
+            ->limit(12)
+            ->get();
+        foreach ($topProducts as $topProduct) {
+            $slug = $topProduct->slug;
+            $attribute = Atribute::where('product_type_id', $topProduct->id)->first();
+            $color = $attribute->color;
+            $image = $color->image->where('is_thumbnail', 1)->first();
+            $TopSellProducts[] = [
+                'id' => $topProduct->id,
+                'name' => $topProduct->name,
+                'slug' => $slug,
+                'color_id' => $color->id,
+                'price' => $attribute->price,
+                'img' => $image->image,
+                'total_orders' => $topProduct->total_orders,
+            ];
+        }
+        $TopSellProducts = (object)$TopSellProducts;
         if (Auth::check()) {
             // redirect to recommend page
             return redirect()->route('home.recommend', Auth::user()->id);
         } else {
-            return view('frontend.pages.home', compact('home'));
+            return view('frontend.pages.home', compact('home', 'TopSellProducts'));
         }
     }
     public function recommend($id)
     {
+        // $userId = $id;
+        // $items = Rate::select('product_id')->distinct()->get()->pluck('product_id');
+        // $similarity = array();
+        // $normCurrentUser = array();
+        // $normOtherUsers = array();
+
+        // foreach ($items as $item) {
+        //     $similarity[$item] = 0;
+        //     $normCurrentUser[$item] = 0;
+        //     $normOtherUsers[$item] = 0;
+        // }
+        // $userRatings = Rate::where('user_id', $userId)->get();
+        // if (count($userRatings) > 0) {
+
+        //     foreach ($userRatings as $userRating) {
+        //         $normCurrentUser[$userRating->product_id] += pow($userRating->rate, 2);
+        //     }
+
+        //     foreach ($userRatings as $userRating) {
+        //         $otherRatings = Rate::where('product_id', $userRating->product_id)
+        //             ->where('user_id', '!=', $userId)
+        //             ->get();
+
+        //         foreach ($otherRatings as $otherRating) {
+        //             // Tích vô hướng
+        //             $similarity[$otherRating->product_id] += $otherRating->rate * $userRating->rate;
+        //             // Tổng bình phương các đánh giá của người dùng khác
+        //             $normOtherUsers[$otherRating->product_id] += pow($otherRating->rate, 2);
+        //         }
+        //     }
+
+        //     $product_recom  = array();
+
+        //     foreach ($items as $item) {
+        //         if ($normCurrentUser[$item] != 0 && $normOtherUsers[$item] != 0) {
+        //             $product_recom[$item] = $similarity[$item] / (sqrt($normCurrentUser[$item]) * sqrt($normOtherUsers[$item]));
+        //         }
+        //     }
+
+        //     arsort($product_recom);
         $userId = $id;
         $items = Rate::select('product_id')->distinct()->get()->pluck('product_id');
         $similarity = array();
-        $total = array();
+        $normCurrentUser = array();
+        $normOtherUsers = array();
 
         foreach ($items as $item) {
             $similarity[$item] = 0;
-            $total[$item] = 0;
+            $normCurrentUser[$item] = 0;
+            $normOtherUsers[$item] = 0;
         }
         $userRatings = Rate::where('user_id', $userId)->get();
         if (count($userRatings) > 0) {
+
+            foreach ($userRatings as $userRating) {
+                $normCurrentUser[$userRating->product_id] += pow($userRating->rate, 2);
+            }
 
             foreach ($userRatings as $userRating) {
                 $otherRatings = Rate::where('product_id', $userRating->product_id)
@@ -76,23 +146,28 @@ class FrontendController extends Controller
                     ->get();
 
                 foreach ($otherRatings as $otherRating) {
+                    // Tích vô hướng
                     $similarity[$otherRating->product_id] += $otherRating->rate * $userRating->rate;
-                    $total[$otherRating->product_id] += $userRating->rate;
+                    // Tổng bình phương các đánh giá của người dùng khác
+                    $normOtherUsers[$otherRating->product_id] += pow($otherRating->rate, 2);
                 }
             }
 
             $product_recom  = array();
 
             foreach ($items as $item) {
-                if ($total[$item] != 0) {
-                    $product_recom[$item] = $similarity[$item] / $total[$item];
+                if ($normCurrentUser[$item] != 0 && $normOtherUsers[$item] != 0) {
+                    $cosine_similarity = $similarity[$item] / (sqrt($normCurrentUser[$item]) * sqrt($normOtherUsers[$item]));
+                    // Giới hạn giá trị của cosine similarity trong khoảng từ -1 đến 1
+                    $product_recom[$item] = max(min($cosine_similarity, 1), -1);
                 }
             }
+
 
             arsort($product_recom);
             // dd($product_recom );
             $product = [];
-            // dd($product_recom);
+            //dd($product_recom);
             foreach ($product_recom  as $key => $value) {
                 $product_type = Product_type::where('id', $key)->first();
                 $slug = $product_type->slug;
@@ -110,6 +185,49 @@ class FrontendController extends Controller
             }
             // dd($product);
         } else {
+            // $items = Rate::select('product_id')->distinct()->get()->pluck('product_id');
+            // $similarity = array();
+            // $total = array();
+
+            // foreach ($items as $item) {
+            //     $similarity[$item] = 0;
+            //     $total[$item] = 0;
+            // }
+
+            // $allRatings = Rate::all();
+
+            // // Tính độ dài của vector cho mỗi sản phẩm
+            // $productLength = array();
+
+            // foreach ($allRatings as $rating) {
+            //     if (!isset($productLength[$rating->product_id])) {
+            //         $productLength[$rating->product_id] = 0;
+            //     }
+            //     $productLength[$rating->product_id] += pow($rating->rate, 2);
+            // }
+
+            // foreach ($allRatings as $rating) {
+            //     $otherRatings = Rate::where('product_id', $rating->product_id)
+            //         ->where('user_id', '!=', $rating->user_id)
+            //         ->get();
+
+            //     foreach ($otherRatings as $otherRating) {
+            //         $similarity[$otherRating->product_id] += $otherRating->rate * $rating->rate;
+            //         $total[$otherRating->product_id] += 1; // Đếm số lần đánh giá
+            //     }
+            // }
+
+            // $product_recom = array();
+
+            // foreach ($items as $item) {
+            //     if ($total[$item] != 0) {
+            //         // Tính cosine similarity
+            //         $product_recom[$item] = $similarity[$item] / (sqrt($total[$item]) * sqrt($productLength[$item]));
+
+            //     }
+            // }
+
+            // arsort($product_recom);
             $items = Rate::select('product_id')->distinct()->get()->pluck('product_id');
             $similarity = array();
             $total = array();
@@ -119,29 +237,43 @@ class FrontendController extends Controller
                 $total[$item] = 0;
             }
 
-            $userRatings = Rate::all();
+            $allRatings = Rate::all();
 
-            foreach ($userRatings as $userRating) {
-                $otherRatings = Rate::where('product_id', $userRating->product_id)
-                    ->where('user_id', '!=', $userRating->user_id)
+            // Tính độ dài của vector cho mỗi sản phẩm
+            $productLength = array();
+
+            foreach ($allRatings as $rating) {
+                if (!isset($productLength[$rating->product_id])) {
+                    $productLength[$rating->product_id] = 0;
+                }
+                // Cập nhật độ dài của vector cho mỗi sản phẩm
+                $productLength[$rating->product_id] += pow($rating->rate, 2);
+            }
+
+            foreach ($allRatings as $rating) {
+                $otherRatings = Rate::where('product_id', $rating->product_id)
+                    ->where('user_id', '!=', $rating->user_id)
                     ->get();
 
                 foreach ($otherRatings as $otherRating) {
-                    $similarity[$otherRating->product_id] += $otherRating->rate * $userRating->rate;
-                    $total[$otherRating->product_id] += $userRating->rate;
+                    $similarity[$otherRating->product_id] += $otherRating->rate * $rating->rate;
+                    $total[$otherRating->product_id] += 1; // Đếm số lần đánh giá
                 }
             }
 
             $product_recom = array();
 
             foreach ($items as $item) {
-                if ($total[$item] != 0) {
-                    $product_recom[$item] = $similarity[$item] / $total[$item];
+                if ($total[$item] != 0 && $productLength[$item] != 0) {
+                    // Tính cosine similarity và giới hạn kết quả trong khoảng từ -1 đến 1
+                    $product_recom[$item] = max(min($similarity[$item] / (sqrt($total[$item]) * sqrt($productLength[$item])), 1), -1);
                 }
             }
-
             arsort($product_recom);
+
+            // dd($product_recom);
             $recommendations = array_slice($product_recom, 0, 12, true);
+
             $productIds = array_keys($recommendations);
             // dd($productIds);
             foreach ($productIds  as $key => $value) {
@@ -160,12 +292,30 @@ class FrontendController extends Controller
                 ];
             }
         }
-        // $topProducts = Product::select('products.id', 'products.name', 'products.price', 'products.img', DB::raw('COUNT(orders.id) AS total_orders'))
-        //     ->leftJoin('orders', 'orders.product_id', '=', 'products.id')
-        //     ->groupBy('products.id', 'products.name', 'products.price', 'products.img')
-        //     ->orderByDesc('total_orders')
-        //     ->limit(12)
-        //     ->get();
+        $topProducts = Product_type::select('product_types.id', 'product_types.name', 'product_types.slug', DB::raw('COUNT(orders.id) AS total_orders'))
+            ->leftJoin('carts', 'carts.product_type_id', '=', 'product_types.id')
+            // have order_id
+            ->leftJoin('orders', 'carts.order_id', '=', 'orders.id')
+            ->groupBy('product_types.id', 'product_types.name', 'product_types.slug')
+            ->orderByDesc('total_orders')
+            ->limit(12)
+            ->get();
+        foreach ($topProducts as $topProduct) {
+            $slug = $topProduct->slug;
+            $attribute = Atribute::where('product_type_id', $topProduct->id)->first();
+            $color = $attribute->color;
+            $image = $color->image->where('is_thumbnail', 1)->first();
+            $TopSellProducts[] = [
+                'id' => $topProduct->id,
+                'name' => $topProduct->name,
+                'slug' => $slug,
+                'color_id' => $color->id,
+                'price' => $attribute->price,
+                'img' => $image->image,
+                'total_orders' => $topProduct->total_orders,
+            ];
+        }
+        $TopSellProducts = (object)$TopSellProducts;
         $home = Category::with([
             'type.product.product_type' => function ($query) {
                 $query->select('product_id')->distinct();
@@ -174,7 +324,7 @@ class FrontendController extends Controller
         // change $product to object
         $product = (object)$product;
         // dd($product);
-        return view('frontend.pages.home', compact('product', 'home'));
+        return view('frontend.pages.home', compact('product', 'home', 'TopSellProducts'));
     }
     public function getCategory($category, Request $request)
     {
@@ -197,6 +347,27 @@ class FrontendController extends Controller
         }
         $type = Type::where('category_id', $category->id)->select('id', 'name', 'slug')->get();
         return view('frontend.pages.category', compact('category', 'type'));
+    }
+    function computeSimilarity($currentProductRatings, $itemRatings)
+    {
+        // Giả sử chúng ta sử dụng cosine similarity
+        $dotProduct = 0;
+        $currentProductMagnitude = 0;
+        $itemProductMagnitude = 0;
+
+        foreach ($currentProductRatings as $currentRating) {
+            $dotProduct += $currentRating->rate * $itemRatings['score'];
+            $currentProductMagnitude += pow($currentRating->rate, 2);
+        }
+
+        $currentProductMagnitude = sqrt($currentProductMagnitude);
+        $itemProductMagnitude = sqrt($itemRatings['score'] * $itemRatings['count']);
+
+        if ($currentProductMagnitude == 0 || $itemProductMagnitude == 0) {
+            return 0;
+        }
+
+        return $dotProduct / ($currentProductMagnitude * $itemProductMagnitude);
     }
     public function getProductDetail($product_type, Request $request)
     {
@@ -239,35 +410,43 @@ class FrontendController extends Controller
         $product = Product::where('id', $product_detail->product_id)->first();
         $description = Description::where('id', $product->description_id)->first();
         // recommend product
-        $userRatings = Rate::where('product_id', $product_detail->id)->get();
+        $currentProductRatings  = Rate::where('product_id', $product_detail->id)->get();
         // dd($userRatings);
         $similarItems = [];
-        foreach ($userRatings as $rating) {
-            $similarRatings = Rate::where('user_id', $rating->user_id)
+        foreach ($currentProductRatings as $rating) {
+            $userRatings = Rate::where('user_id', $rating->user_id)
                 ->where('product_id', '!=', $product_detail->id)
                 ->get();
-            foreach ($similarRatings as $similarRating) {
-                if (!array_key_exists($similarRating->product_id, $similarItems)) {
-                    $similarItems[$similarRating->product_id] = [
-                        'id' => $similarRating->product_id,
+
+            foreach ($userRatings as $userRating) {
+                if (!array_key_exists($userRating->product_id, $similarItems)) {
+                    $similarItems[$userRating->product_id] = [
+                        'id' => $userRating->product_id,
                         'score' => 0,
                         'count' => 0,
                     ];
                 }
-                $similarItems[$similarRating->product_id]['score'] += $similarRating->rate;
-                $similarItems[$similarRating->product_id]['count']++;
+                $similarItems[$userRating->product_id]['score'] += $userRating->rate;
+                $similarItems[$userRating->product_id]['count']++;
             }
         }
+
+        // Tính điểm trung bình cho các sản phẩm tương tự
         foreach ($similarItems as $key => $item) {
             $similarItems[$key]['score'] = $item['score'] / $item['count'];
         }
+        foreach ($similarItems as $key => $item) {
+            // Sử dụng hàm tương đồng, ví dụ: cosine similarity, để tính độ tương đồng giữa sản phẩm hiện tại và sản phẩm khác
+            $similarItems[$key]['similarity'] = $this->computeSimilarity($currentProductRatings, $item);
+        }
 
-        // dd($similarItems);
-        uasort($similarItems, function ($a, $b) {
-            return $b['score'] - $a['score'];
+        // sắp xếp các sản phẩm khác dựa trên độ tương đồng
+        usort($similarItems, function ($a, $b) {
+            return $b['similarity'] <=> $a['similarity'];
         });
+        dd($similarItems);
         $similarItems = array_slice($similarItems, 0, 5);
-        <!-- dd($similarItems); -->
+
         // $similarItems contain information of item
         // foreach ($similarItems as $key => $item) {
         //     // find product by id and add category

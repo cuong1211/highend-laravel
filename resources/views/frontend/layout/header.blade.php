@@ -25,7 +25,11 @@
                     <div class="search"><i class="fa-solid fa-magnifying-glass"></i></div>
                     <div class="">
                         <a href="" style="color: white" class="cart">
-                            <i class="fa-solid fa-cart-shopping"></i>
+                            @if (Auth::check())
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            @else
+                                <p style="font-size: 15px; margin: 0; width: 80px">Đăng nhập</p>
+                            @endif
                         </a>
                     </div>
                     @if (Auth::check())

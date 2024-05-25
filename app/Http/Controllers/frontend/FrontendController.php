@@ -444,7 +444,7 @@ class FrontendController extends Controller
         usort($similarItems, function ($a, $b) {
             return $b['similarity'] <=> $a['similarity'];
         });
-        dd($similarItems);
+        // dd($similarItems);
         $similarItems = array_slice($similarItems, 0, 5);
 
         // $similarItems contain information of item
